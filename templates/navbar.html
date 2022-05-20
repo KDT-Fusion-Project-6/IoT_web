@@ -22,6 +22,19 @@
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-primary">
   <!-- Navbar Brand-->
   <a class="navbar-brand ml-3" href="{% url 'board:index' %}">STYLER</a>
+  <button
+    class="navbar-toggler ml-auto"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarNav"
+    aria-controls="navbarNav"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon">
+      ddd
+    </span>
+  </button>
   <!-- Navbar-->
   <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
     <ul class="navbar-nav ml-auto">
@@ -30,20 +43,20 @@
       <li class="nav-item">
         
         {% if profile_user.profile.avatar %}
-        <a class="nav-link" href="{% url 'users:profile' user.pk %}"> {{ user.username }} <br /></a>
+        <a class="nav-link" href="{% url 'users:profile' user.pk %}"><i class="far fa-user"></i> {{ user.username }} <br /></a>
         {% else %}
-        <a class="nav-link" href="{% url 'users:profile' user.pk %}"> {{ user.username }} <br /></a>
+        <a class="nav-link" href="{% url 'users:profile' user.pk %}"><i class="far fa-user"></i> {{ user.username }} <br /></a>
         {% endif %}
 
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{% url 'users:logout' %}"> &nbsp;Logout</a>
+        <a class="nav-link" href="{% url 'users:logout' %}"> <i class="fas fa-sign-out-alt"></i>&nbsp;Logout</a>
         {% else %}
-        <a class="nav-link" href="{% url 'users:login' %}">&nbsp;Login</a>
+        <a class="nav-link" href="{% url 'users:login' %}"><i class="fas fa-check"></i>&nbsp;Login</a>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" href="{% url 'users:signup' %}">&nbsp;SIGNUP</a>
+        <a class="nav-link" href="{% url 'users:signup' %}"><i class="fas fa-wine-glass-alt"></i>&nbsp;SIGNUP</a>
       </li>
       {% endif %}
     </ul>
@@ -56,13 +69,16 @@
     <nav class="sb-sidenav accordion sb-sidenav-primary" id="sidenavAccordion">
       <div class="sb-sidenav-menu">
         <div class="nav">
-
           <div class="sb-sidenav-menu-heading">MY SITE</div>
           
           {% if user.is_authenticated %}
+          <a class="nav-link" href="{% url 'users:profile' user.pk %}">
+            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+            Profile
+          </a>
           {% else %}
           <a class="nav-link" href="{% url 'users:login' %}">
-            <div class="nav-link-icon"></div>
+            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
             Login / Logout
           </a>
           {% endif %}

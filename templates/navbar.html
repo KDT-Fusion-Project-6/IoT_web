@@ -50,9 +50,9 @@
 
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{% url 'users:logout' %}"> <i class="fas fa-sign-out-alt"></i>&nbsp;Logout</a>
+        <a class="nav-link" href="{% url 'users:logout' %}"> <i class="fas fa-sign-out-alt"></i>&nbsp;LOGOUT</a>
         {% else %}
-        <a class="nav-link" href="{% url 'users:login' %}"><i class="fas fa-check"></i>&nbsp;Login</a>
+        <a class="nav-link" href="{% url 'users:login' %}"><i class="fas fa-check"></i>&nbsp;LOGIN</a>
       </li>
 
       <li class="nav-item">
@@ -70,16 +70,23 @@
       <div class="sb-sidenav-menu">
         <div class="nav">
           <div class="sb-sidenav-menu-heading">MY SITE</div>
-          
+          <a class="nav-link" href="{% url 'board:index' %}">
+            <div class="nav-link-icon"></div>
+            CAMERA
+          </a>
+          <a class="nav-link" href="{% url 'cal:calendar' %}">
+            <div class="nav-link-icon"></div>
+            CLOSET
+          </a>
           {% if user.is_authenticated %}
           <a class="nav-link" href="{% url 'users:profile' user.pk %}">
-            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+            <div class="nav-link-icon"><i class="fas fa-columns"></i></div>
             Profile
           </a>
           {% else %}
           <a class="nav-link" href="{% url 'users:login' %}">
-            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-            Login / Logout
+            <div class="nav-link-icon"></div>
+            LOGIN / LOGOUT
           </a>
           {% endif %}
           

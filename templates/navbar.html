@@ -22,19 +22,6 @@
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-primary">
   <!-- Navbar Brand-->
   <a class="navbar-brand ml-3" href="{% url 'board:index' %}">TO-DY</a>
-  <button
-    class="navbar-toggler ml-auto"
-    type="button"
-    data-toggle="collapse"
-    data-target="#navbarNav"
-    aria-controls="navbarNav"
-    aria-expanded="false"
-    aria-label="Toggle navigation"
-  >
-    <span class="navbar-toggler-icon">
-      ddd
-    </span>
-  </button>
   <!-- Navbar-->
   <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
     <ul class="navbar-nav ml-auto">
@@ -74,7 +61,7 @@
             <div class="nav-link-icon"></div>
             CAMERA
           </a>
-          <a class="nav-link" href="{% url 'cal:calendar' %}">
+          <a class="nav-link" href="#">
             <div class="nav-link-icon"></div>
             CLOSET
           </a>
@@ -92,11 +79,7 @@
           
         </div>
       </div>
-
-      <div class="sb-sidenav-footer">
-        <div class="small">Logged in as:</div>
-        {{user.username}}
-      </div>
     </nav>
   </div>
+</div>
   

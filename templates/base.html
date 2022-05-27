@@ -1,50 +1,50 @@
-{% load static %} {% static "" as baseUrl %}
-<!DOCTYPE html>
+{% load static %}
+{% block content %}
+<!doctype html>
 <html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" , maximum-scale="1.0," , user-scalable="no" />
-
-    <link
-      rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
-      integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}" />
-    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
-    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
-
-    <title>STYLER</title>
-  </head>
-  <!-- static 경로에 대한 하드 코드 회피 static '스타일 파일 경로' -->
-
-  <body class="sb-nav-fixed">
-    {% include "navbar.html" %}
-    <div id="layoutSidenav_content">
-      <div id="body-content">
-        <h1 class="title">{% block title %}{% endblock %}</h1>
-        <hr />
-        <main>{% block content %} {% endblock %}</main>
-      </div>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-    <script src="{{baseUrl}}/js/scripts.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-    <script src="{{baseUrl}}/assets/demo/chart-area-demo.js"></script>
-    <script src="{{baseUrl}}/assets/demo/chart-bar-demo.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
-    <script src="{{baseUrl}}/js/datatables-simple-demo.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
-
-    <!-- jQuery JS -->
-    <script src="{% static 'jquery-3.6.0.min.js' %}"></script>
-    <!-- Bootstrap JS -->
-    <script src="{% static 'bootstrap.min.js' %}"></script>
-
-    <!-- java script -->
-    {% block script %}{% endblock %}
-  </body>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous" />
+        <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+        <title>TO-DY</title>
+    </head>
+        <body>
+        <!-- 기본 템플릿 안에 삽입될 내용 Start -->
+        
+        <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <div class="container-fluid">
+            <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link active" href="#">TO-DY</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'closet:index' %}">옷장</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">카메라</a>
+            </li>
+            </ul>
+            <ul class="navbar-nav">
+                {% if user.is_authenticated %}
+                <a class="nav-link" href="{% url 'login:logout' %}">
+                {{ user.username }} (로그아웃)</a>
+                    {% else %}
+                    <a class="nav-link" href="{% url 'login:login' %}">로그인</a>
+                    <li class="nav-item "><a class="nav-link" href="{% url 'login:signup' %}">회원가입</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="{{baseUrl}}/js/scripts.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+        <script src="{{baseUrl}}/assets/demo/chart-area-demo.js"></script>
+        <script src="{{baseUrl}}/assets/demo/chart-bar-demo.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+        <script src="{{baseUrl}}/js/datatables-simple-demo.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+        </body>
 </html>
+{% endblock%}

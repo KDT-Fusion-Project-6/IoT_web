@@ -73,12 +73,27 @@ WSGI_APPLICATION = 'main.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+
+# import pymysql # 추가
+# pymysql django ORM 연동
+# pymysql.install_as_MySQLdb() # 추가
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+'default': {
+'ENGINE': 'django.db.backends.sqlite3',
+'NAME': BASE_DIR / 'db.sqlite3',
 }
+# 'default': { # 추가
+# 'ENGINE': 'django.db.backends.mysql',
+# 'NAME': 'django_db', # DB명
+# 'USER': 'python', # 데이터베이스 계정
+# 'PASSWORD':'python', # 계정 비밀번호
+# #'HOST':'localhost', # 데이테베이스 IP
+# 'HOST':'mysql-svc', # rds ep
+# 'PORT':'3306', # 데이터베이스 port
+# }
+}
+
 
 
 # Password validation

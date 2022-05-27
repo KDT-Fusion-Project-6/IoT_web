@@ -15,7 +15,7 @@ def signup(request): # 계정생성
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
 
-            login(request, user)
+            login(request, user) 
             return redirect('index')
     else:
         form = UserForm()

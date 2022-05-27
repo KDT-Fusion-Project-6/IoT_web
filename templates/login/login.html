@@ -1,7 +1,7 @@
 {% block content %}
 {% include "base.html" %}
 <div class="login-form" style="margin-top: 10%" align="center">
-  <h3 class="mb-5"><p class="text-dark login">LOGIN</p></h3>
+  <h3 class="mb-5"><p class="text-primary login">LOGIN</p></h3>
   <form method="post" class="post-form" action="{% url 'login:login' %}">
     {% csrf_token %}
     <!-- 로그인 성공 후 이동되는 URL -->
@@ -14,7 +14,7 @@
       <input type="password" class="form-control" name="password" placeholder="비밀번호를 입력하세요." id="password" value="{{ form.password.value|default_if_none:'' }}" />
     </div>
     <div class="form-group col-9">
-        <button type="submit" class="btn btn-dark col-sm-4" style="margin-bottom: 10px">로그인</button>
+        <button type="submit" class="btn btn-primary col-sm-4" style="margin-bottom: 10px">로그인</button>
     </div>
     <p>
       아이디가 없으신가요? <a href="{% url 'login:signup' %}" style="text-decoration: none" class="text-primary signup"> &nbsp; 회원가입</a>

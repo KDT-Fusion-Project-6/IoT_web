@@ -1,3 +1,5 @@
+mysqlclient==2.1.0
+PyMySQL==1.0.2
 asgiref==3.5.2
 certifi==2022.5.18.1
 Django==3.2.13

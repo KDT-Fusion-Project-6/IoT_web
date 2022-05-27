@@ -3,7 +3,7 @@
 {% include "base.html" %}
 <div class="login-form " style="margin-top: 10%; "align="center">
   <h3 class="mb-5">
-    <p class="text-dark login" style="text-align: center;">SIGNUP</p>
+    <p class="text-primary login" style="text-align: center;">SIGNUP</p>
   </h3>
   <form method="post" class="post-form my-3">
     {% csrf_token %} {% include "error/form_error.html" %}
@@ -45,7 +45,7 @@
           placeholder="이메일을 입력해주세요."
       />
     </div>
-    <button type="submit" class="btn btn-dark col-sm-3" style="margin-top: 1%;">생성하기</button>
+    <button type="submit" class="btn btn-primary col-sm-3" style="margin-top: 1%;">생성하기</button>
     <div class="sns-btn col-6">
   </form>
 </div>

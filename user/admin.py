@@ -5,6 +5,6 @@ from .models import Closet
 
 # Question모델 관리/ 검색기능
 class QuestionAdmin(admin.ModelAdmin):
-    search_fields = ['subject']
+    search_fields = ['closet_title']
     
 admin.site.register(Closet, QuestionAdmin)

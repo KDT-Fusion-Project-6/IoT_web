@@ -23,6 +23,6 @@ app_name = 'closet'
 urlpatterns = [
     path('', views.index, name='index'),
     path('<int:closet_id>/', views.detail, name ='detail'),
-    path('closet/create/', views.closet_create, name='closet_create'),
+    path('closet/create/', views.closet_create, name='create'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

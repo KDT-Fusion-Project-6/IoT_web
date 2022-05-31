@@ -1,20 +1,24 @@
 {% block content %}
 
 {% include "base.html" %}
-    
+    <style>
+        ul{
+            list-style: none;
+        }
+    </style>
 {% if closet_list %} <!-- 조건문 1 -->
     <div class="col-xl">
     <ul>
-        {% for Closet in closet_list %} <!-- elif 조건문 2 -->
-        <li>
-            <a href="{% url 'closet:detail' Closet.id %}">
-                <img src = "{{ closet.mainphoto.url}}" alt="" width="200px" height="200px" class="mx-auto d-block img" style="float: left; margin:0     2%;">
-                <h1 class="h2">{{ closet.subject }}</h1>
+        {% for closet in closet_list %} <!-- elif 조건문 2 -->
+        <li style="width: 200px; float:left; margin: 0 1%;" >
+            <a href="{% url 'closet:detail' closet.id %}">
+                <img src = "{{ closet.closet_uploadedFile }}" alt="" width="200px" height="200px" class="mx-auto d-block img" style="float: left; margin:2% 2%;">
             </a>
+            <p style="text-align: center;">{{ closet.closet_title }}</p>
             <!-- views detail(request, closet_id) -->
         </li>
         {% endfor %}
         {% endif %}
     </ul>
-    </div><a href="{% url 'closet:closet_create' %}" class="col-sm btn btn-primary block"><button class="col-sm btn btn-primary block">의류등록</button></a>
+    </div><a href="{% url 'closet:create' %}" class="col-sm btn btn-primary block"><button class="col-sm btn btn-primary block">의류등록</button></a>
 {% endblock %}

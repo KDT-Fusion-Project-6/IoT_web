@@ -1,15 +1,12 @@
-{% extends 'base.html' %}
-{% load static %}
+{% extends 'base.html' %}{% load static %}{% block content %}{% include "base.html" %}
 
-{% block content %}
-{% include "base.html" %}
 <div class="p-5 text-dark text-center">
-    <h1 class="h2">{{ question.subject }}</h1>
+    <p style="text-align: center;">{{ closet.closet_title }}</p>
     <p class="h5">{{ question.content }}</p>
 </div>
-    {% if question.mainphoto %}
+    {% if closet_uploadedFile %}
         <div class="container my-3 bg-muted">
-            <img src = "{{ question.mainphoto.url }}" alt="" height="600" class="mx-auto d-block">
+            <img src = "{{ question.closet_uploadedFile }}" alt="" height="600" class="mx-auto d-block">
         </div>
             <div class="recommend">
             </div>

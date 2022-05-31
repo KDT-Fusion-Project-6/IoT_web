@@ -5,7 +5,7 @@
     <h5 class="my-3 border-bottom pb-2">의류등록</h5>
 
     <form action="{% url 'closet:create' %}" method="POST" enctype="multipart/form-data">
-        <select>
+        <select name="classInfo">
            <option value="">트래디셔널</option>
            <option value="">매니시</option>
            <option value="">에스닉</option>
@@ -27,3 +27,5 @@
     </form>
 </div>
 {% endblock %}  
+
+

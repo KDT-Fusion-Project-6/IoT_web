@@ -12,7 +12,7 @@
         {% for closet in closet_list %} <!-- elif 조건문 2 -->
         <li style="width: 200px; float:left; margin: 0 1%;" >
             <a href="{% url 'closet:detail' closet.id %}">
-                <img src = "{{ closet.closet_uploadedFile }}" alt="" width="200px" height="200px" class="mx-auto d-block img" style="float: left; margin:2% 2%;">
+                <img src = "{{ closet.closet_uploadedFile }}"  alt="" width="200px" height="200px" class="mx-auto d-block img" style="float: left; margin:2% 2%;">
             </a>
             <p style="text-align: center;">{{ closet.closet_title }}</p>
             <!-- views detail(request, closet_id) -->
@@ -21,4 +21,6 @@
         {% endif %}
     </ul>
     </div><a href="{% url 'closet:create' %}" class="col-sm btn btn-primary block"><button class="col-sm btn btn-primary block">의류등록</button></a>
-{% endblock %}
+{% endblock %}  
+
+

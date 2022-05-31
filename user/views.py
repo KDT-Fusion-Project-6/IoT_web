@@ -8,9 +8,7 @@ from . import models
 # Create your views here.
 
 def index(request):
-    """
-    closet 목록 출력
-    """
+#목록출력
     page = request.GET.get('page', '1') # 페이지
     # 데이터 작성날짜 역순 조회
     closet_list = Closet.objects.order_by('-closet_create_date')
@@ -20,9 +18,7 @@ def index(request):
 
 
 def detail(request, closet_id):
-    """
-    closet 내용 출력
-    """
+#내용출력
     question = get_object_or_404(Closet, pk=closet_id)
     context = {'question': question}
     return render(request, 'closet/closet_detail.html', context)
@@ -30,7 +26,7 @@ def detail(request, closet_id):
 
 
 def closet_create(request):
-    #의류등록
+#의류등록
     if request.method == "POST":
         # Fetching the form data
         closet_title = request.POST["closet_title"]

@@ -26,10 +26,10 @@ def detail(request, closet_id):
     context = {'question': question}
     return render(request, 'closet/closet_detail.html', context)
 
+
+
 def closet_create(request):
-    """
-    closet 의류등록
-    """
+#의류등록
     if request.method == "POST":
         print (request.FILES)
         closet_title = request.POST["closet_title"]

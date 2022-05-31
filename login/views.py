@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from login.forms import UserForm
 # Create your views here.
+
 def index(request):
     return render(request, 'main.html')
 

@@ -4,9 +4,9 @@
     <p style="text-align: center;">{{ closet.closet_title }}</p>
     <p class="h5">{{ question.content }}</p>
 </div>
-    {% if closet_uploadedFile %}
+    {% if closet_list %}
         <div class="container my-3 bg-muted">
-            <img src = "{{ question.closet_uploadedFile }}" alt=" " height="600" class="mx-auto d-block">
+            <img src = "media/images/{{ closet.closet_uploadedFile }}" alt=" " height="600" class="mx-auto d-block">
         </div>
             <div class="recommend">
                 추천목록

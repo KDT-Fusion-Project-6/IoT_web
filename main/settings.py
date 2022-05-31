@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'user',
     'login',
+    'camera',
 ]
 
 MIDDLEWARE = [
@@ -144,7 +145,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # 미디어 파일의 경로 설정
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-MEDIA_URL = "/media/"
+MEDIA_URL = "/media/images/"
+
 
 # 앞에 /를 더하면 절대 경로로 바뀐다.
 # 127.0.0.1:8000/media/room_photos/1.jpg

@@ -6,26 +6,23 @@
 
     <form action="{% url 'closet:create' %}" method="POST" enctype="multipart/form-data">
         <select name="classInfo">
-           <option value="">트래디셔널</option>
-           <option value="">매니시</option>
-           <option value="">에스닉</option>
-           <option value="">컨템포러리</option>
-           <option value="">내추럴</option>
-           <option value="">젠더플루이드</option>
-           <option value="">스포티</option>
-           <option value="">서브컬쳐</option>
-           <option value="">캐주얼</option>
+            <option value="">트래디셔널</option>
+            <option value="">매니시</option>
+            <option value="">에스닉</option>
+            <option value="">컨템포러리</option>
+            <option value="">내추럴</option>
+            <option value="">젠더플루이드</option>
+            <option value="">스포티</option>
+            <option value="">서브컬쳐</option>
+            <option value="">캐주얼</option>
         </select><br><br>
         <input type="text" name="closet_title" placeholder="의류이름"><br><br>
         <input type="file" name="closet_uploadedFile" class="primary"><br><br>
         {% csrf_token %}
         <input type="submit" value="저장" class="btn btn-primary" onclick="alert('저장완료')">
         <div><br>
-		
 		<!-- checkbox: 복수 선택 -->
 	</div>
     </form>
 </div>
-{% endblock %}  
-
-
+{% endblock %}

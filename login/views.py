@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from login.forms import UserForm
 # Create your views here.
 def index(request):
-    return render(request, 'login/login.html')
+    return render(request, 'main.html')
 
 def signup(request): # 계정생성
     if request.method == "POST":

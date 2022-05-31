@@ -130,10 +130,11 @@ TIME_ZONE = 'Asia/Seoul'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
+# html static파일
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    BASE_DIR / 'static',
-]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
+
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
@@ -141,8 +142,18 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # media directori
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# 미디어 파일의 경로 설정
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_URL = "/media/"
+
+# 앞에 /를 더하면 절대 경로로 바뀐다.
+# 127.0.0.1:8000/media/room_photos/1.jpg
+# 만약 /를 안 붙이면, 내가 이 파일에 접속할 때 상대경로로 URL이 생성된다. -> 지저분해진다.
+# 127.0.0.1:8000/admin/rooms/photo/1/change/media/room_photos/1.jpg
+# 이 URL로 접속하면, 위의 미디어 파일의 경로로 들어가도록 하는 것이다.
+
+
+
 
 # 로그인
 LOGIN_REDIRECT_URL = '/'

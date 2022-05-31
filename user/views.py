@@ -36,7 +36,7 @@ def closet_create(request):
         image = request.FILES['closet_uploadedFile']  # formdata 키 
         image_time = (str(datetime.now())).replace(" ","") # 이미지이름을 시간으로 설정하기 위해 datetime를 사용
         image_type = (image.content_type).split("/")[1]
-        bucket_name = "gymin-s3"
+        bucket_name = "won2" #"gymin-s3"
         region = 'ca-central-1'
 
 
@@ -56,12 +56,14 @@ def closet_create(request):
         s3_client.upload_fileobj(
             image,
             bucket_name, # 버킷이름
-            image_time+"."+image_type, # s3 저장될 파일 이름
+            closet_title+"."+image_type,
+            # image_time+"."+image_type, # s3 저장될 파일 이름
             ExtraArgs = {
                 "ContentType" : image.content_type
             }
         )
-        image_url = "http://"+ bucket_name + '.s3.' + region + '.amazonaws.com/' + image_time+"."+image_type  # 업로드된 이미지의 url이 설정값으로 저장됨
+        # image_url = "http://"+ bucket_name + '.s3.' + region + '.amazonaws.com/' + image_time+"."+image_type  # 업로드된 이미지의 url이 설정값으로 저장됨
+        image_url = "http://"+ bucket_name + '.s3.' + region + '.amazonaws.com/' + closet_title+"."+image_type  # 업로드된 이미지의 url이 설정값으로 저장됨
         image_url = image_url.replace(" ","/")
         
     closet = Closet.objects.all()

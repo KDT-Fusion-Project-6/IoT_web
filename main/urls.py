@@ -1,3 +1,4 @@
+from sys import path_hooks
 from django import views
 from django.contrib import admin
 from django.urls import path, include
@@ -7,5 +8,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('user/', include('user.urls')),
     path('login/', include('login.urls')),
+    path('camera/', include('camera.urls'))
     
 ]

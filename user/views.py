@@ -26,8 +26,6 @@ def detail(request, closet_id):
     context = {'question': question}
     return render(request, 'closet/closet_detail.html', context)
 
-
-
 def closet_create(request):
 #의류등록
     if request.method == "POST":
@@ -47,24 +45,24 @@ def closet_create(request):
         )
         closet.save()
 
-        s3_client = boto3.client(
-                's3',
-                aws_access_key_id = AWS_ACCESS_KEY_ID,
-                aws_secret_access_key = AWS_SECRET_ACCESS_KEY
-            )
+        # s3_client = boto3.client(
+        #         's3',
+        #         aws_access_key_id = AWS_ACCESS_KEY_ID,
+        #         aws_secret_access_key = AWS_SECRET_ACCESS_KEY
+        #     )
 
-        s3_client.upload_fileobj(
-            image,
-            bucket_name, # 버킷이름
-            closet_title+"."+image_type,
-            # image_time+"."+image_type, # s3 저장될 파일 이름
-            ExtraArgs = {
-                "ContentType" : image.content_type
-            }
-        )
-        # image_url = "http://"+ bucket_name + '.s3.' + region + '.amazonaws.com/' + image_time+"."+image_type  # 업로드된 이미지의 url이 설정값으로 저장됨
-        image_url = "http://"+ bucket_name + '.s3.' + region + '.amazonaws.com/' + closet_title+"."+image_type  # 업로드된 이미지의 url이 설정값으로 저장됨
-        # image_url = image_url.replace(" ","/")
+        # s3_client.upload_fileobj(
+        #     image,
+        #     bucket_name, # 버킷이름
+        #     closet_title+"."+image_type,
+        #     # image_time+"."+image_type, # s3 저장될 파일 이름
+        #     ExtraArgs = {
+        #         "ContentType" : image.content_type
+        #     }
+        # )
+        # # image_url = "http://"+ bucket_name + '.s3.' + region + '.amazonaws.com/' + image_time+"."+image_type  # 업로드된 이미지의 url이 설정값으로 저장됨
+        # image_url = "http://"+ bucket_name + '.s3.' + region + '.amazonaws.com/' + closet_title+"."+image_type  # 업로드된 이미지의 url이 설정값으로 저장됨
+        # # image_url = image_url.replace(" ","/")
     closet = Closet.objects.all()
 
     return render(request, "closet/closet_form.html", context = {

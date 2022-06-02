@@ -1,14 +1,118 @@
 {% extends 'base.html' %}{% load static %}{% block content %}{% include "base.html" %}
+<div class="container-fluid auto mt-5">
+    <video id="video" autoplay style="float:left" class="col-sm-6"></video>
+        <div class="col-sm-6">
+        </div>
+    <canvas id="canvas" width="640" height="480" class="col-sm-6"></canvas>
+    <button type="button" id="webcamBtn" class="btn btn-primary col-xl-12 mt-3">사진찍기</button>
+    <a id="downloadPhoto" download="my-photo.jpg" class="button"><button type="button"  class="btn btn-primary col-xl-12 mt-3"  role="button" @click="downloadImage">사진저장</button></a>
+    <div class="col-sm-6">
+        </div>
+    
+</div>
+<div class="container">
+    
+</div>
+<div>
+    
+    <canvas id="canvas" width="640" height="480"></canvas>
+    <div>
 
-<h2 align=center>Auto Video Stream to Still Image</h2>
+<script>
+if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+	navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
+		var video = document.getElementById('video');
+		video.srcObject = stream;
+		video.play();
+	});
+}
 
-<video id="myVideo" width="400" height="300" style="border: 1px solid #ddd;"></video>
-<canvas id="myCanvas" width="160" height="140" style="border: 1px solid #ddd;"></canvas><br>
+var canvas = document.getElementById('canvas');
+var context = canvas.getContext('2d');
+var video = document.getElementById('video');
+document.getElementById("webcamBtn").addEventListener("click",function() {
+	context.drawImage(video,0,0,640,480);
+});
 
-<input type=button value="get Video" onclick="{getVideo()}">
-<input type=button value="get Pic" onclick="{takeSnapshot()}"><br>
-Take snapshot every <input type=number id="myInterval" value="3000"> milliseconds
-<input type=button value="Auto" onclick="{takeAuto()}">
+ new Vue({
+  el: '#app',
+  
+  data() {
+    return {
+      isCameraOpen: false,
+      isPhotoTaken: false,
+      isShotPhoto: false,
+      isLoading: false,
+      link: '#'
+    }
+  },
+  
+  methods: {
+    toggleCamera() {
+      if(this.isCameraOpen) {
+        this.isCameraOpen = false;
+        this.isPhotoTaken = false;
+        this.isShotPhoto = false;
+        this.stopCameraStream();
+      } else {
+        this.isCameraOpen = true;
+        this.createCameraElement();
+      }
+    },
+    
+    createCameraElement() {
+      this.isLoading = true;
+      
+      const constraints = (window.constraints = {
+				audio: false,
+				video: true
+			});
 
-<script src="webcam.js"></script>
+
+			navigator.mediaDevices
+				.getUserMedia(constraints)
+				.then(stream => {
+          this.isLoading = false;
+					this.$refs.camera.srcObject = stream;
+				})
+				.catch(error => {
+          this.isLoading = false;
+					alert("May the browser didn't support or there is some errors.");
+				});
+    },
+    
+    stopCameraStream() {
+      let tracks = this.$refs.camera.srcObject.getTracks();
+
+			tracks.forEach(track => {
+				track.stop();
+			});
+    },
+    
+    takePhoto() {
+      if(!this.isPhotoTaken) {
+        this.isShotPhoto = true;
+
+        const FLASH_TIMEOUT = 50;
+
+        setTimeout(() => {
+          this.isShotPhoto = false;
+        }, FLASH_TIMEOUT);
+      }
+      
+      this.isPhotoTaken = !this.isPhotoTaken;
+      
+      const context = this.$refs.canvas.getContext('2d');
+      context.drawImage(this.$refs.camera, 0, 0, 450, 337.5);
+    },
+    
+    downloadImage() {
+      const download = document.getElementById("downloadPhoto");
+      const canvas = document.getElementById("photoTaken").toDataURL("image/jpeg")
+    .replace("image/jpeg", "image/octet-stream");
+      download.setAttribute("href", canvas);
+    }
+  }
+});
+</script>
 {% endblock %}  

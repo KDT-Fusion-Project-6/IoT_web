@@ -44,10 +44,11 @@ def closet_create(request):
         image = request.FILES['closet_uploadedFile']  # 이미지 이름
         # image_time = (str(datetime.now())).replace(" ","") # 이미지이름을 시간으로 설정하기 위해 datetime를 사용
         image_type = (image.content_type).split("/")[1]
-        bucket_name = "gymin-s3"
+        bucket_name = "won2"
         region = 'ca-central-1'
-
-        image_url = "https://"+ bucket_name + '.s3.' + region + '.amazonaws.com/' + closet_title +"."+image_type  # 업로드된 이미지의 url이 설정값으로 저장됨
+        username = "won"   # 수정
+        
+        image_url = "https://"+ bucket_name + '.s3.' + region + '.amazonaws.com/' + username + "/" + closet_title +"."+image_type  # 업로드된 이미지의 url이 설정값으로 저장됨
 
         im     = Image.open(image)   # 추가
         buffer = BytesIO()
@@ -71,7 +72,7 @@ def closet_create(request):
         s3_client.upload_fileobj(
             buffer,
             bucket_name, # 버킷이름
-            closet_title+"."+image_type,
+            username + "/" + closet_title+"."+image_type,
             # image_time+"."+image_type, # s3 저장될 파일 이름
             ExtraArgs = {
                 "ContentType" : image.content_type

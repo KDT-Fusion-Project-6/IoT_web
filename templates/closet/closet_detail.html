@@ -11,7 +11,7 @@
 </style>
 <div class="container mt-5 col-sm-3 " >
     <p style="text-align: center;">{{ closet.closet_title }}</p>
-    <img src="media/images/{{ closet.closet_uploadedFile }}" width="300" height="300" class="mx-auto d-block">
+    <img src="{{ closet.closet_url }}" width="300" height="300" class="mx-auto d-block">
     <div class="choice_form mx-auto d-block">
     <form action="/action_page.php">
         <div class="choice_closet">

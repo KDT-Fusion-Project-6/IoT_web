@@ -1,22 +1,55 @@
 {% extends 'base.html' %}{% load static %}{% block content %}{% include "base.html" %}
-<div class="container-fluid auto mt-5">
+<div class="container mx-auto mt-5">
+<form action="{% url 'closet:create' %}" method="POST" enctype="multipart/form-data" class="form-select">
+        <select name="classInfo"> 스타일
+            <option value="">트래디셔널</option>
+            <option value="">매니시</option>
+            <option value="">에스닉</option>
+            <option value="">컨템포러리</option>
+            <option value="">내추럴</option>
+            <option value="">젠더플루이드</option>
+            <option value="">스포티</option>
+            <option value="">서브컬쳐</option>
+            <option value="">캐주얼</option>
+        </select>
+        <select name="classInfo">
+            <option value="">봄</option>
+            <option value="">여름</option>
+            <option value="">가을</option>
+            <option value="">겨울</option>
+        </select>
+        <select name="classInfo">
+            <option value="">상의</option>
+            <option value="">하의</option>
+            <option value="">아우터</option>
+        </select>
+        <select name="classInfo">
+            <option value="">스키니</option>
+            <option value="">슬림</option>
+            <option value="">레귤러</option>
+            <option value="">루즈</option>
+            <option value="">오버사이즈</option>
+        </select>
+        <br><br>
+        <input type="text" name="closet_title" placeholder="의류이름"><br><br>
+        <input type="file" name="closet_uploadedFile" class="warning"><br><br>
+        {% csrf_token %}
+        <a id="downloadPhoto" download="my-photo.jpg" class="button"><button type="button"  class="btn btn-warning col-xl-12 mt-3"  role="button" @click="downloadImage">사진저장</button></a>
+		<!-- checkbox: 복수 선택 -->
+  </form> 
+</div>
+    
+<div class="container-fluid auto mt-3">
     <video id="video" autoplay style="float:left" class="col-sm-6"></video>
         <div class="col-sm-6">
         </div>
     <canvas id="canvas" width="640" height="480" class="col-sm-6"></canvas>
     <button type="button" id="webcamBtn" class="btn btn-warning col-xl-12 mt-3">사진찍기</button>
-    <a id="downloadPhoto" download="my-photo.jpg" class="button"><button type="button"  class="btn btn-warning col-xl-12 mt-3"  role="button" @click="downloadImage">사진저장</button></a>
+    
     <div class="col-sm-6">
         </div>
     
 </div>
-<div class="container">
-    
-</div>
-<div>
-    
-    <canvas id="canvas" width="640" height="480"></canvas>
-    <div>
 
 <script>
 if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
@@ -33,86 +66,31 @@ var video = document.getElementById('video');
 document.getElementById("webcamBtn").addEventListener("click",function() {
 	context.drawImage(video,0,0,640,480);
 });
-
- new Vue({
-  el: '#app',
-  
-  data() {
-    return {
-      isCameraOpen: false,
-      isPhotoTaken: false,
-      isShotPhoto: false,
-      isLoading: false,
-      link: '#'
+</script>
+<script>
+    // 엘리먼트 취득
+    const $canvas = document.querySelector("#canvas");
+    const $btn_start = document.querySelector("#btn_start");
+    const $btn_stop = document.querySelector("#downloadPhoto");
+    // "녹화시작" 버튼 이벤트 처리
+    $btn_start.onclick = (event)=>{
+        
+        // MediaRecorder.stop 이벤트 처리
+        mediaRecorder.onstop = (event)=>{
+            // 들어온 스트림 데이터들(Blob)을 통합한 Blob객체를 생성
+            const blob = new Blob(arrVideoData);
+            // BlobURL 생성: 통합한 스트림 데이터를 가르키는 임시 주소를 생성
+            const blobURL = window.URL.createObjectURL(blob);
+            // 다운로드 구현
+            const $anchor = document.createElement("a"); // 앵커 태그 생성
+            document.body.appendChild($anchor);
+            $anchor.href = blobURL; // 다운로드 경로 설정
+            $anchor.click(); // 앵커 클릭                
+            // 배열 초기화
+            arrVideoData.splice(0);
+        }
+        // 녹화 시작
+        mediaRecorder.start(); 
     }
-  },
-  
-  methods: {
-    toggleCamera() {
-      if(this.isCameraOpen) {
-        this.isCameraOpen = false;
-        this.isPhotoTaken = false;
-        this.isShotPhoto = false;
-        this.stopCameraStream();
-      } else {
-        this.isCameraOpen = true;
-        this.createCameraElement();
-      }
-    },
-    
-    createCameraElement() {
-      this.isLoading = true;
-      
-      const constraints = (window.constraints = {
-				audio: false,
-				video: true
-			});
-
-
-			navigator.mediaDevices
-				.getUserMedia(constraints)
-				.then(stream => {
-          this.isLoading = false;
-					this.$refs.camera.srcObject = stream;
-				})
-				.catch(error => {
-          this.isLoading = false;
-					alert("May the browser didn't support or there is some errors.");
-				});
-    },
-    
-    stopCameraStream() {
-      let tracks = this.$refs.camera.srcObject.getTracks();
-
-			tracks.forEach(track => {
-				track.stop();
-			});
-    },
-    
-    takePhoto() {
-      if(!this.isPhotoTaken) {
-        this.isShotPhoto = true;
-
-        const FLASH_TIMEOUT = 50;
-
-        setTimeout(() => {
-          this.isShotPhoto = false;
-        }, FLASH_TIMEOUT);
-      }
-      
-      this.isPhotoTaken = !this.isPhotoTaken;
-      
-      const context = this.$refs.canvas.getContext('2d');
-      context.drawImage(this.$refs.camera, 0, 0, 450, 337.5);
-    },
-    
-    downloadImage() {
-      const download = document.getElementById("downloadPhoto");
-      const canvas = document.getElementById("photoTaken").toDataURL("image/jpeg")
-    .replace("image/jpeg", "image/octet-stream");
-      download.setAttribute("href", canvas);
-    }
-  }
-});
 </script>
 {% endblock %}  

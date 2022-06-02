@@ -22,8 +22,8 @@ def index(request):
 
 def detail(request, closet_id):
 #내용출력
-    question = get_object_or_404(Closet, pk=closet_id)
-    context = {'question': question}
+    closet = get_object_or_404(Closet, pk=closet_id)
+    context = {'closet': closet}
     return render(request, 'closet/closet_detail.html', context)
 
 def closet_create(request):

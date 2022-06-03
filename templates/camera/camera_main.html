@@ -1,35 +1,47 @@
 {% extends 'base.html' %}{% load static %}{% block content %}{% include "base.html" %}
+
+<style>
+    #label-1 { display:inline-block; width:60px; }
+</style>
+
 <div class="container mx-auto mt-5">
 <form action="{% url 'closet:create' %}" method="POST" enctype="multipart/form-data" class="form-select">
-        <select name="classInfo"> 스타일
-            <option value="">트래디셔널</option>
-            <option value="">매니시</option>
-            <option value="">에스닉</option>
-            <option value="">컨템포러리</option>
-            <option value="">내추럴</option>
-            <option value="">젠더플루이드</option>
-            <option value="">스포티</option>
-            <option value="">서브컬쳐</option>
-            <option value="">캐주얼</option>
-        </select>
-        <select name="classInfo">
-            <option value="">봄</option>
-            <option value="">여름</option>
-            <option value="">가을</option>
-            <option value="">겨울</option>
-        </select>
-        <select name="classInfo">
-            <option value="">상의</option>
-            <option value="">하의</option>
-            <option value="">아우터</option>
-        </select>
-        <select name="classInfo">
-            <option value="">스키니</option>
-            <option value="">슬림</option>
-            <option value="">레귤러</option>
-            <option value="">루즈</option>
-            <option value="">오버사이즈</option>
-        </select>
+    <label id="label-1">스타일 :</label>
+    <select name="classInfo">
+        <option value="">트래디셔널</option>
+        <option value="">매니시</option>
+        <option value="">에스닉</option>
+        <option value="">컨템포러리</option>
+        <option value="">내추럴</option>
+        <option value="">젠더플루이드</option>
+        <option value="">스포티</option>
+        <option value="">서브컬쳐</option>
+        <option value="">캐주얼</option>
+    </select></br>
+
+    <label id="label-1">계절감 :</label>
+    <select name="classInfo">
+        <option value="">봄</option>
+        <option value="">여름</option>
+        <option value="">가을</option>
+        <option value="">겨울</option>
+    </select></br>
+
+    <label id="label-1">타입 :</label>
+    <select name="classInfo">
+        <option value="">상의</option>
+        <option value="">하의</option>
+        <option value="">아우터</option>
+    </select></br>
+
+    <label id="label-1">핏 :</label>
+    <select name="classInfo">
+        <option value="">스키니</option>
+        <option value="">슬림</option>
+        <option value="">레귤러</option>
+        <option value="">루즈</option>
+        <option value="">오버사이즈</option>
+    </select>
         <br><br>
         <input type="text" name="closet_title" placeholder="의류이름"><br><br>
         <input type="file" name="closet_uploadedFile" class="warning"><br><br>

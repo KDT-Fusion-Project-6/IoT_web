@@ -1,17 +1,18 @@
 from time import timezone
-from urllib import request
-from django.shortcuts import redirect, render, HttpResponse
+
+from django.shortcuts import render
 from .models import Closet
 from django.shortcuts import render, get_object_or_404
-from datetime import datetime
-from . import models
+
+from django.contrib.auth.decorators import login_required
+
 from user.aws_settings import AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, BUCKET_NAME, REGION
 import boto3
 from io  import BytesIO
 from PIL import Image
 
-# Create your views here.
 
+@login_required(login_url='login:login')
 def index(request):
 #목록출력
     page = request.GET.get('page', '1') # 페이지
@@ -24,6 +25,7 @@ def index(request):
     return render(request, 'closet/closet_list.html', context)
 
 
+@login_required(login_url='login:login')
 def detail(request, closet_id):
 #내용출력
     closet = get_object_or_404(Closet, pk=closet_id)
@@ -31,6 +33,7 @@ def detail(request, closet_id):
     return render(request, 'closet/closet_detail.html', context)
 
 
+@login_required(login_url='login:login')
 def closet_create(request):
 #의류등록
     if request.method == "POST":

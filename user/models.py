@@ -15,10 +15,11 @@ class Closet(models.Model): #옷장모델
     category4 = ( ('1','1'), ('1','1'), ('1','1') )
     
     #카테고리 실행
-    category1 =  models.CharField(max_length=2, choices = category1 )
-    category2 =  models.CharField(max_length=2, choices = category2 )
-    category3 =  models.CharField(max_length=2, choices = category3 )
-    category4 =  models.CharField(max_length=2, choices = category4 )
+    category1 =  models.CharField(max_length=2, choices = category1, default='')
+    category2 =  models.CharField(max_length=2, choices = category2, default='')
+    category3 =  models.CharField(max_length=2, choices = category3, default='')
+    category4 =  models.CharField(max_length=2, choices = category4, default='')
+    
 class Answer(models.Model): #답변모델
     question = models.ForeignKey(Closet, on_delete=models.CASCADE) #질문 모델연결
     content = models.TextField()

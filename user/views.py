@@ -48,4 +48,48 @@ def closet_create(request):
     form = ClosetForm()
     context = {'form':form}
 
+    #의류등록
+    # if request.method == "POST":
+    #     closet_title = request.POST["closet_title"]
+    #     image = request.FILES['closet_uploadedFile']  # 이미지 (title.jpg)
+    #     user = 'test-user' # 어디서? 
+
+    #     image_type = (image.content_type).split("/")[1]
+    #     bucket_name = BUCKET_NAME
+    #     region = REGION
+
+    #     image_url = "https://"+ bucket_name + '.s3.' + region + '.amazonaws.com/' + user +'/'+ closet_title +"."+image_type  # 업로드된 이미지의 url이 설정값으로 저장됨
+
+    #     im     = Image.open(image)   # 추가
+    #     buffer = BytesIO()
+    #     im.save(buffer, image_type)
+    #     buffer.seek(0)
+        
+    #     # Saving the information in the database
+    #     closet = Closet(
+    #         closet_title = closet_title,
+    #         closet_url = image_url
+    #     )
+    #     closet.save()
+
+    #     s3_client = boto3.client(
+    #             's3',
+    #             aws_access_key_id = AWS_ACCESS_KEY_ID,
+    #             aws_secret_access_key = AWS_SECRET_ACCESS_KEY
+    #         )
+        
+    #     s3_client.upload_fileobj(
+    #         buffer,
+    #         bucket_name, # 버킷이름
+    #         user +'/'+ closet_title+"."+image_type,
+    #         ExtraArgs = {
+    #             "ContentType" : image.content_type
+    #         }
+    #     )
+
+    # closet = Closet.objects.all()
+
+    # return render(request, "closet/closet_form.html", context = {
+    #     "closet": closet
+    # }) 
     return render(request, "closet/closet_form.html", context)

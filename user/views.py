@@ -5,7 +5,7 @@ from .models import Closet
 from django.shortcuts import render, get_object_or_404
 from datetime import datetime
 from . import models
-from user.aws_settings import AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY
+from user.aws_settings import AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, BUCKET_NAME, REGION
 import boto3
 from io  import BytesIO
 from PIL import Image
@@ -39,8 +39,8 @@ def closet_create(request):
         user = 'test-user' # 어디서? 
 
         image_type = (image.content_type).split("/")[1]
-        bucket_name = "gymin-s3"
-        region = 'ca-central-1'
+        bucket_name = BUCKET_NAME
+        region = REGION
 
         image_url = "https://"+ bucket_name + '.s3.' + region + '.amazonaws.com/' + user +'/'+ closet_title +"."+image_type  # 업로드된 이미지의 url이 설정값으로 저장됨
 

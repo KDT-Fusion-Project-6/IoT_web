@@ -1,8 +1,9 @@
 from django.db import models
 from django.forms import ModelChoiceField
-
+from django.contrib.auth.models import User
 # Create your models here.
 class Closet(models.Model): #옷장모델
+    auth_user = models.ForeignKey(User, on_delete=models.CASCADE)
     closet_title = models.CharField(max_length=200) #제목
     closet_url = models.CharField(max_length=300) #s3 url
     closet_content = models.TextField() #내용
@@ -13,7 +14,7 @@ class Closet(models.Model): #옷장모델
     category2 = ( ('1','1'), ('1','1'), ('1','1') )
     category3 = ( ('1','1'), ('1','1'), ('1','1') )
     category4 = ( ('1','1'), ('1','1'), ('1','1') )
-    
+
     #카테고리 실행
     category1 =  models.CharField(max_length=2, choices = category1, default='')
     category2 =  models.CharField(max_length=2, choices = category2, default='')

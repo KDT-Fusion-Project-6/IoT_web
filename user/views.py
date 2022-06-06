@@ -44,21 +44,14 @@ def closet_create(request):
         image_type = (image.content_type).split("/")[1]
         bucket_name = BUCKET_NAME
         region = REGION
-
-        image_url = "https://"+ bucket_name + '.s3.' + region + '.amazonaws.com/' + user +'/'+ closet_title +"."+image_type  # 업로드된 이미지의 url이 설정값으로 저장됨
+        image_name = user +'/'+ closet_title +"." + image_type
+        image_url = "https://"+ bucket_name + '.s3.' + region + '.amazonaws.com/' + image_name  # 업로드된 이미지의 url이 설정값으로 저장됨
 
         im     = Image.open(image)   # 추가
         buffer = BytesIO()
         im.save(buffer, image_type)
         buffer.seek(0)
-        
-        # Saving the information in the database
-        closet = Closet(
-            closet_title = closet_title,
-            closet_url = image_url
-        )
-        closet.save()
-
+    
         s3_client = boto3.client(
                 's3',
                 aws_access_key_id = AWS_ACCESS_KEY_ID,
@@ -73,6 +66,15 @@ def closet_create(request):
                 "ContentType" : image.content_type
             }
         )
+
+        # Saving the information in the database
+        closet = Closet(
+            closet_title = closet_title,
+            closet_url = image_url
+        )
+        closet.save()
+
+        s3_client.delete_object(Bucket=bucket_name, Key=image_name)
 
     closet = Closet.objects.all()
 

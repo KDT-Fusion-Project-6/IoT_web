@@ -39,10 +39,8 @@ def closet_create(request):
     if request.method == "POST":
         closet_title = request.POST["closet_title"]
         image = request.FILES['closet_uploadedFile']  # 이미지 (title.jpg)
+        category1 = request.POST["category1"]
         user = 'test-user' # 어디서? 
-        
-        # category1 = request.POST["category1"]
-
         image_type = (image.content_type).split("/")[1]
         bucket_name = BUCKET_NAME
         region = REGION
@@ -57,8 +55,10 @@ def closet_create(request):
         # Saving the information in the database
         closet = Closet(
             closet_title = closet_title,
-            closet_url = image_url
+            closet_url = image_url,
+            category1 = category1
         )
+        
         closet.save()
 
         s3_client = boto3.client(

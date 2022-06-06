@@ -16,7 +16,7 @@ class Closet(models.Model): #옷장모델
     category4 = ( ('1','1'), ('1','1'), ('1','1') )
 
     #카테고리 실행
-    category1 =  models.CharField(max_length=2, choices = category1, default='')
-    category2 =  models.CharField(max_length=2, choices = category2, default='')
-    category3 =  models.CharField(max_length=2, choices = category3, default='')
-    category4 =  models.CharField(max_length=2, choices = category4, default='')
+    category1 =  models.CharField(max_length=20, choices = category1, default='')
+    category2 =  models.CharField(max_length=20, choices = category2, default='')
+    category3 =  models.CharField(max_length=20, choices = category3, default='')
+    category4 =  models.CharField(max_length=20, choices = category4, default='')

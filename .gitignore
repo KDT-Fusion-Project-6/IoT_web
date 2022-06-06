@@ -299,5 +299,9 @@ $RECYCLE.BIN/
 aws_env.py
 aws_settings.py
 
+# pyc
+__pycathe__/
+*.py[cod]
+
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,python,pycharm

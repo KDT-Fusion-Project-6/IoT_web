@@ -10,7 +10,7 @@ from user.aws_settings import AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, BUCKET_N
 import boto3
 from io  import BytesIO
 from PIL import Image
-
+import random
 
 @login_required(login_url='login:login')
 def index(request):
@@ -44,7 +44,8 @@ def closet_create(request):
         image_type = (image.content_type).split("/")[1]
         bucket_name = BUCKET_NAME
         region = REGION
-        image_name = user +'/'+ closet_title +"." + image_type
+        num = random.randrange(1, 99999)
+        image_name = user +'/top-'+ str(num) +"." + image_type
         image_url = "https://"+ bucket_name + '.s3.' + region + '.amazonaws.com/' + image_name  # 업로드된 이미지의 url이 설정값으로 저장됨
 
         im     = Image.open(image)   # 추가
@@ -61,7 +62,7 @@ def closet_create(request):
         s3_client.upload_fileobj(
             buffer,
             bucket_name, # 버킷이름
-            user +'/'+ closet_title+"."+image_type,
+            image_name,
             ExtraArgs = {
                 "ContentType" : image.content_type
             }
@@ -74,7 +75,7 @@ def closet_create(request):
         )
         closet.save()
 
-        s3_client.delete_object(Bucket=bucket_name, Key=image_name)
+        s3_client.delete_object(Bucket=bucket_name, Key=image_name) # 이미지 삭제
 
     closet = Closet.objects.all()
 

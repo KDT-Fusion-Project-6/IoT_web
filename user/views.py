@@ -40,6 +40,8 @@ def closet_create(request):
         closet_title = request.POST["closet_title"]
         image = request.FILES['closet_uploadedFile']  # 이미지 (title.jpg)
         user = 'test-user' # 어디서? 
+        
+        # category1 = request.POST["category1"]
 
         image_type = (image.content_type).split("/")[1]
         bucket_name = BUCKET_NAME

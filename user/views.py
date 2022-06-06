@@ -47,7 +47,7 @@ def closet_create(request):
         num = random.randrange(1, 99999)
         image_name = user +'/top-'+ str(num) +"." + image_type
         image_url = "https://"+ bucket_name + '.s3.' + region + '.amazonaws.com/' + image_name  # 업로드된 이미지의 url이 설정값으로 저장됨
-
+        
         im     = Image.open(image)   # 추가
         buffer = BytesIO()
         im.save(buffer, image_type)

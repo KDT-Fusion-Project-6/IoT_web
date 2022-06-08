@@ -5,12 +5,16 @@
 <style>
     #label-1 { display:inline-block; width:60px; }
 </style>
-
-<div class="container mt-3 ">
+<div class="container mt-5 ">
     <h5 class="my-3 border-bottom pb-2">아우터 등록</h5>
     <form action="{% url 'closet:outer_create' %}" method="POST" enctype="multipart/form-data">
-
-        <input type="radio" name="category1"><label> type1 </label>
+        <select name="category1" id="id_month">
+            <option value="0" selected>월 선택</option>
+            <option value="01">type1</option>
+            <option value="02">type2</option>
+            <option value="03">type3</option>
+            <option value="04">type4</option>
+        </select>
         <input type="text" name="closet_outer_title" placeholder="의류이름"><br><br>
         <input type="file" name="closet_outer_uploadedFile" class="warning"><br><br>
         {% csrf_token %}
@@ -20,4 +24,14 @@
 	</div>
     </form>
 </div>
+<script>
+    $(document).ready(function() {
+        $("select[name=category1]" ).val( "{{ category_text }}" );
+        $('select[name=category1]').change(function () {
+        console.log($('select[name=category1]').val());
+        category = $('select[name=category1]').val();
+        $('.form').submit();
+    });
+});
+</script>
 {% endblock %}

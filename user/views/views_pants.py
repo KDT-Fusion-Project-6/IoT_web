@@ -18,8 +18,9 @@ def pants_closet_create(request):
     if request.method == "POST":
         
         closet_pants_title = request.POST["closet_pants_title"]
-        image = request.FILES['closet_uploadedFile']  # 이미지 (title.jpg)
-        category1 = request.POST["category1"]
+        image = request.FILES['closet_pants_uploadedFile']  # 이미지 (title.jpg)
+        category_text = request.POST.get['category']
+        # 1번추가
         
         user = 'test-user' # 어디서? 
         image_type = (image.content_type).split("/")[1]
@@ -37,7 +38,7 @@ def pants_closet_create(request):
         closet_pants = Closet_pants(
             closet_pants_title = closet_pants_title,
             closet_pants_url = image_url,
-            category1 = category1
+        #2번 추가
         )
         
         closet_pants.save()
@@ -60,5 +61,6 @@ def pants_closet_create(request):
     closet_pants = Closet_pants.objects.all()
 
     return render(request, "closet/closet_form_pants.html", context = {
+        'category_text': category_text,
         "closet": closet_pants
     }) 

@@ -10,7 +10,7 @@
     <h5 class="my-3 border-bottom pb-2">하의등록</h5>
     <form action="{% url 'closet:pants_create' %}" method="POST" enctype="multipart/form-data">
 
-        <input type="radio" name="category1"><label> type1 </label>
+        
         <input type="text"  name="closet_pants_title" placeholder="의류이름"><br><br>
         <input type="file"  name="closet_pants_uploadedFile" class="warning"><br><br>
         {% csrf_token %}

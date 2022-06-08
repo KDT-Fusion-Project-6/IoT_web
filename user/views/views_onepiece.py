@@ -18,7 +18,6 @@ def onepiece_closet_create(request):
         
         closet_onepiece_title = request.POST["closet_onepiece_title"]
         image = request.FILES['closet_onepiece_uploadedFile']  # 이미지 (title.jpg)
-        category1 = request.POST["category1"]
         
         user = 'test-user' # 어디서? 
         image_type = (image.content_type).split("/")[1]
@@ -36,7 +35,6 @@ def onepiece_closet_create(request):
         closet_onepiece = Closet_onepiece(
             Closet_onepiece_title = closet_onepiece_title,
             closet_onepiece_url = image_url,
-            category1 = category1
         )
         
         closet_onepiece.save()

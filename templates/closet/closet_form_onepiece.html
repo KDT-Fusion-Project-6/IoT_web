@@ -8,9 +8,14 @@
 
 <div class="container mt-3 ">
     <h5 class="my-3 border-bottom pb-2">원피스등록</h5>
-    <form action="{% url 'closet:onepiece_create' %}" method="POST" enctype="multipart/form-data">
-        
-        <input type="radio" name="category1"><label> type1 </label>
+    <form action="{% url 'closet:onepiece_create' %}" method="get" enctype="multipart/form-data">
+        <select name="category1" id="id_month">
+            <option value="0" selected>월 선택</option>
+            <option value="01">type1</option>
+            <option value="02">type2</option>
+            <option value="03">type3</option>
+            <option value="04">type4</option>
+        </select>
         <input type="text" name="closet_onepiece_title" placeholder="의류이름"><br><br>
         <input type="file" name="closet_onepiece_uploadedFile" class="warning"><br><br>
         {% csrf_token %}
@@ -20,4 +25,5 @@
 	</div>
     </form>
 </div>
+
 {% endblock %}

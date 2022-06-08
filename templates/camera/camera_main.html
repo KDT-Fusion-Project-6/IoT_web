@@ -1,108 +1,16 @@
 {% extends 'base.html' %}{% load static %}{% block content %}{% include "base.html" %}
 
-<style>
-    #label-1 { display:inline-block; width:60px; }
-</style>
-
-<div class="container mx-auto mt-5">
-<form action="{% url 'closet:create' %}" method="POST" enctype="multipart/form-data" class="form-select">
-    <label id="label-1">스타일 :</label>
-    <select name="classInfo">
-        <option value="">트래디셔널</option>
-        <option value="">매니시</option>
-        <option value="">에스닉</option>
-        <option value="">컨템포러리</option>
-        <option value="">내추럴</option>
-        <option value="">젠더플루이드</option>
-        <option value="">스포티</option>
-        <option value="">서브컬쳐</option>
-        <option value="">캐주얼</option>
-    </select></br>
-
-    <label id="label-1">계절감 :</label>
-    <select name="classInfo">
-        <option value="">봄</option>
-        <option value="">여름</option>
-        <option value="">가을</option>
-        <option value="">겨울</option>
-    </select></br>
-
-    <label id="label-1">타입 :</label>
-    <select name="classInfo">
-        <option value="">상의</option>
-        <option value="">하의</option>
-        <option value="">아우터</option>
-    </select></br>
-
-    <label id="label-1">핏 :</label>
-    <select name="classInfo">
-        <option value="">스키니</option>
-        <option value="">슬림</option>
-        <option value="">레귤러</option>
-        <option value="">루즈</option>
-        <option value="">오버사이즈</option>
-    </select>
-        <br><br>
-        <input type="text" name="closet_title" placeholder="의류이름"><br><br>
-        <input type="file" name="closet_uploadedFile" class="warning"><br><br>
-        {% csrf_token %}
-        <a id="downloadPhoto" download="my-photo.jpg" class="button"><button type="button"  class="btn btn-warning col-xl-12 mt-3"  role="button" @click="downloadImage">사진저장</button></a>
-		<!-- checkbox: 복수 선택 -->
-  </form> 
-</div>
-    
-<div class="container-fluid auto mt-3">
-    <video id="video" autoplay style="float:left" class="col-sm-6"></video>
-        <div class="col-sm-6">
-        </div>
-    <canvas id="canvas" width="640" height="480" class="col-sm-6"></canvas>
-    <button type="button" id="webcamBtn" class="btn btn-warning col-xl-12 mt-3">사진찍기</button>
-    
-    <div class="col-sm-6">
-        </div>
-    
-</div>
-
 <script>
-if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-	navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
-		var video = document.getElementById('video');
-		video.srcObject = stream;
-		video.play();
-	});
-}
-
-var canvas = document.getElementById('canvas');
-var context = canvas.getContext('2d');
-var video = document.getElementById('video');
-document.getElementById("webcamBtn").addEventListener("click",function() {
-	context.drawImage(video,0,0,640,480);
+$(function(){
+    $('#camcorder').change(function(e){
+    $('#mov').attr('src', URL.createObjectURL(e.target.files[0]));
+    });
 });
 </script>
-<script>
-    // 엘리먼트 취득
-    const $canvas = document.querySelector("#canvas");
-    const $btn_start = document.querySelector("#btn_start");
-    const $btn_stop = document.querySelector("#downloadPhoto");
-    // "녹화시작" 버튼 이벤트 처리
-    $btn_start.onclick = (event)=>{
-        
-        // MediaRecorder.stop 이벤트 처리
-        mediaRecorder.onstop = (event)=>{
-            // 들어온 스트림 데이터들(Blob)을 통합한 Blob객체를 생성
-            const blob = new Blob(arrVideoData);
-            // BlobURL 생성: 통합한 스트림 데이터를 가르키는 임시 주소를 생성
-            const blobURL = window.URL.createObjectURL(blob);
-            // 다운로드 구현
-            const $anchor = document.createElement("a"); // 앵커 태그 생성
-            document.body.appendChild($anchor);
-            $anchor.href = blobURL; // 다운로드 경로 설정
-            $anchor.click(); // 앵커 클릭                
-            // 배열 초기화
-            arrVideoData.splice(0);
-        }
-        // 녹화 시작
-        mediaRecorder.start(); 
-    }
-</script>
+
+
+<input type="file" id="camcorder" name="camcorder" capture="camcorder" accept="video/*"/>
+<br/>
+<video id="mov" width="100%" autoplay="yes" controls="true" ></video>
+
 {% endblock %}  

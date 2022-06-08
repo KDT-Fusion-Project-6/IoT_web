@@ -1,0 +1,23 @@
+{% block content %}
+{% include "base.html" %}
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<style>
+    #label-1 { display:inline-block; width:60px; }
+</style>
+
+<div class="container mt-3 ">
+    <h5 class="my-3 border-bottom pb-2">아우터 등록</h5>
+    <form action="{% url 'closet:outer_create' %}" method="POST" enctype="multipart/form-data">
+
+        <input type="radio" name="category1"><label> type1 </label>
+        <input type="text" name="closet_outer_title" placeholder="의류이름"><br><br>
+        <input type="file" name="closet_outer_uploadedFile" class="warning"><br><br>
+        {% csrf_token %}
+        <input type="submit" value="저장" class="btn btn-warning" onclick="alert('저장완료')">
+        <div><br>
+		<!-- checkbox: 복수 선택 -->
+	</div>
+    </form>
+</div>
+{% endblock %}

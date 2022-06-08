@@ -15,7 +15,6 @@ from PIL import Image
 def onepiece_closet_create(request):
 #의류등록
     if request.method == "POST":
-        
         closet_onepiece_title = request.POST["closet_onepiece_title"]
         image = request.FILES['closet_onepiece_uploadedFile']  # 이미지 (title.jpg)
         
@@ -33,7 +32,7 @@ def onepiece_closet_create(request):
         
         # Saving the information in the database
         closet_onepiece = Closet_onepiece(
-            Closet_onepiece_title = closet_onepiece_title,
+            closet_onepiece_title = closet_onepiece_title,
             closet_onepiece_url = image_url,
         )
         
@@ -57,5 +56,5 @@ def onepiece_closet_create(request):
     closet_onepiece = Closet_onepiece.objects.all()
 
     return render(request, "closet/closet_form_onepiece.html", context = {
-        "closet_onepiece": closet_onepiece
+        "closet": closet_onepiece
     }) 

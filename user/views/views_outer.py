@@ -22,7 +22,6 @@ def outer_closet_create(request):
         closet_outer_title = request.POST["closet_outer_title"]
         image = request.FILES['closet_outer_uploadedFile']  # 이미지 (title.jpg)
         
-        
         user = 'test-user' # 어디서? 
         image_type = (image.content_type).split("/")[1]
         bucket_name = BUCKET_NAME

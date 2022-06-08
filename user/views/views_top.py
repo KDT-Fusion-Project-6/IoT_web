@@ -16,10 +16,9 @@ from PIL import Image
 def top_closet_create(request):
 #의류등록
     if request.method == "POST":        
-        print (request.POST)
+        
         closet_top_title = request.POST["closet_top_title"]
         image = request.FILES['closet_top_uploadedFile']  # 이미지 (title.jpg)
-        category1 = request.POST["category1"]
         
         user = 'test-user' # 어디서? 
         image_type = (image.content_type).split("/")[1]
@@ -42,7 +41,6 @@ def top_closet_create(request):
         closet_top = Closet_top(
             closet_top_title = closet_top_title,
             closet_top_url = image_url,
-            category1 = category1
         )
         
         closet_top.save()
@@ -65,5 +63,5 @@ def top_closet_create(request):
     closet_top = Closet_top.objects.all()
 
     return render(request, "closet/closet_form_top.html", context = {
-        "closet_": closet_top
+        "closet": closet_top
     }) 

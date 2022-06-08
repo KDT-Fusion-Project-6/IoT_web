@@ -61,6 +61,5 @@ def pants_closet_create(request):
     closet_pants = Closet_pants.objects.all()
 
     return render(request, "closet/closet_form_pants.html", context = {
-        'category_text': category_text,
         "closet": closet_pants
     }) 

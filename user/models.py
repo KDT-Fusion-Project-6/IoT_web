@@ -78,6 +78,8 @@ class Closet_onepiece(models.Model):
     closet_onepiece_windter = models.BooleanField(default = True)
     closet_onepiece_color = models.CharField(max_length=100,default='')
     closet_onepiece_style = models.CharField(max_length=100, default='')
+    closet_onepiece_fit = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)],default=1, null=True)
+    
     
 
 

@@ -1,6 +1,7 @@
 from time import timezone
 
 from django.shortcuts import render
+from django.urls import is_valid_path
 from ..models import Closet_outer
 from django.shortcuts import render, get_object_or_404
 
@@ -17,9 +18,10 @@ from PIL import Image
 def outer_closet_create(request):
 #의류등록
     if request.method == "POST":
+        print(request)
         closet_outer_title = request.POST["closet_outer_title"]
-        category1 = request.POST["category1"]
-        image = request.FILES['closet_uploadedFile']  # 이미지 (title.jpg)
+        image = request.FILES['closet_outer_uploadedFile']  # 이미지 (title.jpg)
+        
         
         user = 'test-user' # 어디서? 
         image_type = (image.content_type).split("/")[1]
@@ -37,7 +39,6 @@ def outer_closet_create(request):
         closet_outer = Closet_outer(
             closet_outer_title = closet_outer_title,
             closet_outer_url = image_url,
-            category1 = category1
         )
         
         closet_outer.save()

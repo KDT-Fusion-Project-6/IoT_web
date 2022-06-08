@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Closet
+from .models import Closet, Closet_onepiece, Closet_outer, Closet_pants, Closet_top
 
 # Register your models here.
 
@@ -8,3 +8,7 @@ class QuestionAdmin(admin.ModelAdmin):
     search_fields = ['closet_title']
     
 admin.site.register(Closet, QuestionAdmin)
+admin.site.register(Closet_onepiece, QuestionAdmin)
+admin.site.register(Closet_top, QuestionAdmin)
+admin.site.register(Closet_outer, QuestionAdmin)
+admin.site.register(Closet_pants, QuestionAdmin)

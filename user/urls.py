@@ -14,16 +14,33 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.urls import path
-from . import views
+
+from .views import views_outer, views_pants, views_top, views_onepiece, views_base
 from django.conf.urls.static import static
 from django.conf import settings
 
 app_name = 'closet'
 
 urlpatterns = [
-    path('', views.index, name='index'),
-    path('<int:closet_id>/', views.detail, name ='detail'),
-    path('closet/create/', views.closet_create, name='create'),
+    path('', views_base.index, name='index'),
+    path('<int:closet_id>/', views_base.detail, name ='detail'),
+    
+    # 상의
+    path('closet/closet_top', views_top.top_closet_create, name='top_create'), # 등록
+    # path('closet/detail/top', views_outer.top_closet_detail, name='create'), # 디테일
+    # path('closet/delete/top', views_outer.top_closet_create, name='create'), # 삭제
+    # 하의
+    path('closet/closet_pants', views_pants.pants_closet_create, name='pants_create'), # 등록
+    # path('closet/detail/pants', views_outer.outer_closet_detail, name='create'), # 디테일
+    # path('closet/delete/pants', views_outer.outer_closet_delete, name='create'), # 삭제
+    # 아우터
+    path('closet/closet_outer', views_outer.outer_closet_create, name='outer_create'), # 등록
+    # path('closet/detail/outer', views_outer.outer_closet_detail, name='create'), # 디테일
+    # path('closet/delete/outer', views_outer.outer_closet_delete, name='create'), # 삭제
+    # 원피스
+    path('closet/closet_onepiece', views_onepiece.onepiece_closet_create, name='onepiece_create'), # 등록
+    # path('closet/detail/onepiece', views_outer.outer_closet_detail, name='create'), # 디테일
+    # path('closet/delete/onepiece', views_outer.outer_closet_delete, name='create'), # 삭제
 
 ]
 

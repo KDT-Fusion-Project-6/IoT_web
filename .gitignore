@@ -300,7 +300,7 @@ aws_env.py
 aws_settings.py
 
 # pyc
-__pycathe__/
+__pycache__/
 *.pyc[cod]
 
 

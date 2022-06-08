@@ -12,15 +12,15 @@ from io  import BytesIO
 from PIL import Image
 
 
+#상의등록
 @login_required(login_url='login:login')
-def top_closet_create(request):
-#의류등록
+def top_closet_create(request, author_user):
+
     if request.method == "POST":        
-        
+
         closet_top_title = request.POST["closet_top_title"]
-        image = request.FILES['closet_top_uploadedFile']  # 이미지 (title.jpg)
-        
-        user = 'test-user' # 어디서? 
+        image = request.FILES['closet_top_uploadedFile']  # 이미지 (title.jpg)        
+        user = str(request.user)    # user.id
         image_type = (image.content_type).split("/")[1]
         bucket_name = BUCKET_NAME
         region = REGION
@@ -32,17 +32,13 @@ def top_closet_create(request):
         im.save(buffer, image_type)
         buffer.seek(0)
         
-        # Saving the information in the database
-
-
-        # 값 받아서 함수에 넣어서 처리하는게 전처리인거죠???
-        # 음 아뇨 제가 말한거는 그냥,, 음 if문?!
-
+        # Saving the information in the database     
         closet_top = Closet_top(
             closet_top_title = closet_top_title,
             closet_top_url = image_url,
-        )
-        
+            author = request.user,   # author_id 속성에 user.id 값 저장
+            # author = author_user <-- 에러
+        )        
         closet_top.save()
 
         s3_client = boto3.client(
@@ -61,7 +57,5 @@ def top_closet_create(request):
         )
 
     closet_top = Closet_top.objects.all()
-
-    return render(request, "closet/closet_form_top.html", context = {
-        "closet": closet_top
-    }) 
+    context = { "closet": closet_top }
+    return render(request, "closet/closet_form_top.html", context) 

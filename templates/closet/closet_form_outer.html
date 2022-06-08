@@ -5,8 +5,10 @@
 <style>
     #label-1 { display:inline-block; width:60px; }
 </style>
+
 <div class="container mt-5 ">
-    <h5 class="my-3 border-bottom pb-2">아우터 등록</h5>
+    <h5 class="my-3 border-bottom pb-2">아우터</h5>
+
     <form action="{% url 'closet:outer_create' %}" method="POST" enctype="multipart/form-data">
         <select name="category1" id="id_month">
             <option value="0" selected>월 선택</option>
@@ -15,15 +17,13 @@
             <option value="03">type3</option>
             <option value="04">type4</option>
         </select>
-        <input type="text" name="closet_outer_title" placeholder="의류이름"><br><br>
-        <input type="file" name="closet_outer_uploadedFile" class="warning"><br><br>
+        <input type="text" name="closet_outer_title" placeholder="의류이름"></br></br>
+        <input type="file" name="closet_outer_uploadedFile" class="warning"></br></br>
         {% csrf_token %}
-        <input type="submit" value="저장" class="btn btn-warning" onclick="alert('저장완료')">
-        <div><br>
-		<!-- checkbox: 복수 선택 -->
-	</div>
+        <input type="submit" value="저장" class="btn btn-warning" onclick="alert('저장완료')"></br>        
     </form>
 </div>
+
 <script>
     $(document).ready(function() {
         $("select[name=category1]" ).val( "{{ category_text }}" );

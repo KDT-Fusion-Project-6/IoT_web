@@ -11,14 +11,15 @@ import boto3
 from io  import BytesIO
 from PIL import Image
 
+#원피스등록
 @login_required(login_url='login:login')
-def onepiece_closet_create(request):
-#의류등록
+def onepiece_closet_create(request, author_user):
+
     if request.method == "POST":
+
         closet_onepiece_title = request.POST["closet_onepiece_title"]
-        image = request.FILES['closet_onepiece_uploadedFile']  # 이미지 (title.jpg)
-        
-        user = 'test-user' # 어디서? 
+        image = request.FILES['closet_onepiece_uploadedFile']  # 이미지 (title.jpg)        
+        user = str(request.user)    # user.id
         image_type = (image.content_type).split("/")[1]
         bucket_name = BUCKET_NAME
         region = REGION
@@ -34,8 +35,8 @@ def onepiece_closet_create(request):
         closet_onepiece = Closet_onepiece(
             closet_onepiece_title = closet_onepiece_title,
             closet_onepiece_url = image_url,
-        )
-        
+            author = request.user,   # author_id 속성에 user.id 값 저장
+        )        
         closet_onepiece.save()
 
         s3_client = boto3.client(
@@ -54,7 +55,5 @@ def onepiece_closet_create(request):
         )
 
     closet_onepiece = Closet_onepiece.objects.all()
-
-    return render(request, "closet/closet_form_onepiece.html", context = {
-        "closet": closet_onepiece
-    }) 
+    context = { "closet": closet_onepiece }
+    return render(request, "closet/closet_form_onepiece.html", context) 

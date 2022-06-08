@@ -12,17 +12,17 @@ from io  import BytesIO
 from PIL import Image
 
 
+#하의등록
 @login_required(login_url='login:login')
-def pants_closet_create(request):
-#의류등록
+def pants_closet_create(request, author_user):
+
     if request.method == "POST":
         
         closet_pants_title = request.POST["closet_pants_title"]
         image = request.FILES['closet_pants_uploadedFile']  # 이미지 (title.jpg)
+        user = str(request.user)    # user.id
         category_text = request.POST.get['category']
-        # 1번추가
-        
-        user = 'test-user' # 어디서? 
+        # 1번추가        
         image_type = (image.content_type).split("/")[1]
         bucket_name = BUCKET_NAME
         region = REGION
@@ -37,10 +37,10 @@ def pants_closet_create(request):
         # Saving the information in the database
         closet_pants = Closet_pants(
             closet_pants_title = closet_pants_title,
-            closet_pants_url = image_url,
+            closet_pants_url = image_url,       
+            author = request.user,   # author_id 속성에 user.id 값 저장     
         #2번 추가
-        )
-        
+        )        
         closet_pants.save()
 
         s3_client = boto3.client(
@@ -59,7 +59,5 @@ def pants_closet_create(request):
         )
 
     closet_pants = Closet_pants.objects.all()
-
-    return render(request, "closet/closet_form_pants.html", context = {
-        "closet": closet_pants
-    }) 
+    context = { "closet": closet_pants }
+    return render(request, "closet/closet_form_pants.html", context) 

@@ -14,15 +14,14 @@ from PIL import Image
 
 
 
+#아우터등록
 @login_required(login_url='login:login')
-def outer_closet_create(request):
-#의류등록
+def outer_closet_create(request, author_user):
     if request.method == "POST":
-        print(request)
+        # print(request)
         closet_outer_title = request.POST["closet_outer_title"]
         image = request.FILES['closet_outer_uploadedFile']  # 이미지 (title.jpg)
-        
-        user = 'test-user' # 어디서? 
+        user = str(request.user)    # user.id        
         image_type = (image.content_type).split("/")[1]
         bucket_name = BUCKET_NAME
         region = REGION
@@ -38,8 +37,8 @@ def outer_closet_create(request):
         closet_outer = Closet_outer(
             closet_outer_title = closet_outer_title,
             closet_outer_url = image_url,
-        )
-        
+            author = request.user,   # author_id 속성에 user.id 값 저장
+        )      
         closet_outer.save()
 
         s3_client = boto3.client(
@@ -58,7 +57,5 @@ def outer_closet_create(request):
         )
 
     closet_outer = Closet_outer.objects.all()
-
-    return render(request, "closet/closet_form_outer.html", context = {
-        "closet": closet_outer
-    }) 
+    context = { "closet": closet_outer }
+    return render(request, "closet/closet_form_outer.html", context) 

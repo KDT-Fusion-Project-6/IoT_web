@@ -7,25 +7,19 @@
 </style>
 
 <div class="container mt-3 ">
-    <h5 class="my-3 border-bottom pb-2">상의등록</h5>
+    <h5 class="my-3 border-bottom pb-2">상의</h5>
+    
     <form action="{% url 'closet:top_create' %}" method="POST" enctype="multipart/form-data">
-
-        <input type=radio name=category1 id=foo value=var>
-        <input type=button value="Uncheck" onclick=
-        "document.getElementById('foo').checked = false"><br>
-        <br>
-
-        <input type="text" name="closet_top_title" placeholder="의류이름"><br><br>
-        <input type="file" name="closet_top_uploadedFile" class="warning"><br><br>
+        <input type="radio" name="category1" id="foo value=var">
+        <input type="button" value="Uncheck" onclick="document.getElementById('foo').checked = false"></br></br>
+        <input type="text" name="closet_top_title" placeholder="의류이름"></br></br>
+        <input type="file" name="closet_top_uploadedFile" class="warning"></br></br>
         {% csrf_token %}
-        <input type="submit" value="저장" class="btn btn-warning" onclick="alert('저장완료')">
-        <div><br>
-		<!-- checkbox: 복수 선택 -->
-	</div>
+        <input type="submit" value="저장" class="btn btn-warning" onclick="alert('저장완료')"></br>		
     </form>
 </div>
-<script>
 
+<script>
 $(document).on("click", "input[name='radioBtn']", function(){
     thisRadio = $(this);
     if (thisRadio.hasClass("imChecked")) {
@@ -37,4 +31,5 @@ $(document).on("click", "input[name='radioBtn']", function(){
     };
 })
 </script>
+
 {% endblock %}

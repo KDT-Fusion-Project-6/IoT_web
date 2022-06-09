@@ -41,7 +41,7 @@ class Closet_outer(models.Model):
     closet_outer_color = models.CharField(max_length=100,default='')
     closet_outer_style = models.CharField(max_length=100, default='')
     closet_outer_fit = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)],default=1, null=True)
-    closet_outer_category = ( ('1','1'), ('1','1'), ('1','1') )
+    closet_outer_category = ( ('1','type1'), ('2','type2'), ('3','type3') )
     category1 =  models.TextField(max_length=20, choices = closet_outer_category, default='')
 
 class Closet_top(models.Model):
@@ -55,7 +55,9 @@ class Closet_top(models.Model):
     closet_top_color = models.CharField(max_length=100,default='')
     closet_top_style = models.CharField(max_length=100, default='')
     closet_top_fit = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)],default=1, null=True)
-
+    closet_top_category = ( ('1','type1'), ('2','type2'), ('3','type3') )
+    category1 =  models.TextField(max_length=20, choices = closet_top_category, default='')
+    
 class Closet_pants(models.Model):
     closet_pants_title = models.CharField(max_length=200, default='')
     closet_pants_url = models.CharField(max_length=50, default='')
@@ -67,7 +69,9 @@ class Closet_pants(models.Model):
     closet_pants_color = models.CharField(max_length=100,default='')
     closet_pants_style = models.CharField(max_length=100, default='')
     closet_pants_fit = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)],default=1, null=True)
-
+    closet_pants_category = ( ('1','type1'), ('2','type2'), ('3','type3') )
+    category1 =  models.TextField(max_length=20, choices = closet_pants_category, default='')
+    
 class Closet_onepiece(models.Model):
     closet_onepiece_title = models.CharField(max_length=200, default='')
     closet_onepiece_url = models.CharField(max_length=50, default='')
@@ -79,8 +83,8 @@ class Closet_onepiece(models.Model):
     closet_onepiece_color = models.CharField(max_length=100,default='')
     closet_onepiece_style = models.CharField(max_length=100, default='')
     closet_onepiece_fit = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)],default=1, null=True)
-    
-    
+    closet_onepiece_category = ( ('1','type1'), ('2','type2'), ('3','type3') )
+    category1 =  models.TextField(max_length=20, choices = closet_onepiece_category, default='')
 
 
 

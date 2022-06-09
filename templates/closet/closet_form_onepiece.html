@@ -9,13 +9,34 @@
 <div class="container mt-3 ">
     <h5 class="my-3 border-bottom pb-2">원피스등록</h5>
     <form action="{% url 'closet:onepiece_create' %}" method="POST" enctype="multipart/form-data">
-        <select name="category1" id="id_month">
-            <option value="0" selected>월 선택</option>
-            <option value="01">type1</option>
-            <option value="02">type2</option>
-            <option value="03">type3</option>
-            <option value="04">type4</option>
-        </select>
+        <div class="form-row field-closet_onepiece_spring">
+                <div class="checkbox-row">
+                        <input type="checkbox" name="closet_onepiece_spring" id="id_closet_onepiece_spring" checked >
+                        <label class="vCheckboxLabel" for="id_closet_onepiece_spring">봄</label>
+                        <input type="checkbox" name="closet_onepiece_summer" id="id_closet_onepiece_summer" checked >
+                        <label class="vCheckboxLabel" for="id_closet_onepiece_summer">여름</label>
+                        <input type="checkbox" name="closet_onepiece_autumn" id="id_closet_onepiece_autumn" checked >
+                        <label class="vCheckboxLabel" for="id_closet_onepiece_autumn">가을</label>
+                        <input type="checkbox" name="closet_onepiece_windter" id="id_closet_onepiece_windter" checked >
+                        <label class="vCheckboxLabel" for="id_closet_onepiece_windter">겨울</label>
+                </div>
+        </div>
+        <div class="form-row field-closet_onepiece_fit">
+            <div>
+                <label class="required" for="id_closet_onepiece_fit">핏</label>
+                <input type="number" max="5" min="1" name="closet_onepiece_fit" value="1" class="vIntegerField" required id="id_closet_onepiece_fit">   
+            </div>
+        </div>
+        <div class="form-row field-category1">
+            <div>
+                <label class="required" for="id_category1">타입</label>
+                <select name="category1" id="id_category1">
+                    <option value="1">type1</option>
+                    <option value="2">type2</option>
+                    <option value="3">type3</option>
+                </select>
+            </div>    
+        </div>
         <input type="text" name="closet_onepiece_title" placeholder="의류이름"><br><br>
         <input type="file" name="closet_onepiece_uploadedFile" class="warning"><br><br>
         {% csrf_token %}
@@ -25,5 +46,4 @@
 	</div>
     </form>
 </div>
-
 {% endblock %}

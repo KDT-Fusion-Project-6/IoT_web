@@ -14,8 +14,15 @@ from PIL import Image
 @login_required(login_url='login:login')
 def onepiece_closet_create(request):
 #의류등록
+    
     if request.method == "POST":
+        print(request)
         closet_onepiece_title = request.POST["closet_onepiece_title"]
+        category1 = request.POST["category1"]
+        closet_onepiece_spring = request.POST ["closet_onepiece_spring"]
+        closet_onepiece_summer = request.POST ["closet_onepiece_summer"]
+        closet_onepiece_autumn = request.POST ["closet_onepiece_autumn"]
+        closet_onepiece_windter = request.POST ["closet_onepiece_windter"]
         image = request.FILES['closet_onepiece_uploadedFile']  # 이미지 (title.jpg)
         
         user = 'test-user' # 어디서? 
@@ -34,6 +41,11 @@ def onepiece_closet_create(request):
         closet_onepiece = Closet_onepiece(
             closet_onepiece_title = closet_onepiece_title,
             closet_onepiece_url = image_url,
+            category1 = category1, 
+            closet_onepiece_spring = closet_onepiece_spring,
+            closet_onepiece_summer = closet_onepiece_summer,
+            closet_onepiece_autumn = closet_onepiece_autumn,
+            closet_onepiece_windter = closet_onepiece_windter,
         )
         
         closet_onepiece.save()

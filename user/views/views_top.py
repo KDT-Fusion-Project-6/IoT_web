@@ -18,8 +18,32 @@ def closet_create(request, author_user):
 
     if request.method == "POST":        
 
-        closet_top_title = request.POST["closet_top_title"]
-        image = request.FILES['closet_top_uploadedFile']  # 이미지 (title.jpg)        
+        closet_top_title = request.POST["closet_title"]     
+        image = request.FILES['closet_uploadedFile']  # 이미지 (title.jpg)
+
+        section = request.POST["section"]
+        top = request.POST["top"]
+        # outer = request.POST["outer"]
+        # pants = request.POST["pants"]
+        # onepiece = request.POST["onepiece"]
+        
+        closet_spring = request.POST.get('closet_spring',False)
+        if closet_spring == "on":
+            closet_spring = True
+        
+        closet_summer = request.POST.get('closet_summer',False)
+        if closet_summer == "on":
+            closet_summer = True
+            
+        closet_fall = request.POST.get('closet_fall',False)
+        if closet_fall == "on":
+            closet_fall = True
+            
+        closet_winter = request.POST.get('closet_winter',False)
+        if closet_winter == "on":
+            closet_winter = True
+
+
         user = str(request.user)    # user.id
         image_type = (image.content_type).split("/")[1]
         bucket_name = BUCKET_NAME
@@ -39,6 +63,18 @@ def closet_create(request, author_user):
             closet_url = image_url,
             author = request.user,   # author_id 속성에 user.id 값 저장
             # author = author_user <-- 에러
+
+            section = section, 
+            top = top, 
+            # outer = outer, 
+            # pants = pants, 
+            # onepiece = onepiece, 
+            
+            closet_spring = closet_spring,
+            closet_summer = closet_summer,
+            closet_fall = closet_fall,
+            closet_winter = closet_winter,
+
         )        
         closet_top.save()
 

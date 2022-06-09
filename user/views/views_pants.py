@@ -18,8 +18,31 @@ def closet_create(request, author_user):
 
     if request.method == "POST":
         
-        closet_pants_title = request.POST["closet_pants_title"]
-        image = request.FILES['closet_pants_uploadedFile']  # 이미지 (title.jpg)
+        closet_pants_title = request.POST["closet_title"]    
+        image = request.FILES['closet_uploadedFile']  # 이미지 (title.jpg)
+        
+        section = request.POST["section"]
+        pants = request.POST["pants"]
+        # outer = request.POST["outer"]
+        # top = request.POST["top"]
+        # onepiece = request.POST["onepiece"]
+        
+        closet_spring = request.POST.get('closet_spring',False)
+        if closet_spring == "on":
+            closet_spring = True
+        
+        closet_summer = request.POST.get('closet_summer',False)
+        if closet_summer == "on":
+            closet_summer = True
+            
+        closet_fall = request.POST.get('closet_fall',False)
+        if closet_fall == "on":
+            closet_fall = True
+            
+        closet_winter = request.POST.get('closet_winter',False)
+        if closet_winter == "on":
+            closet_winter = True
+
         user = str(request.user)    # user.id
         # category_text = request.POST.get['category']
         # 1번추가        
@@ -39,7 +62,18 @@ def closet_create(request, author_user):
             closet_title = closet_pants_title,
             # closet_pants_url = image_url,       
             closet_url = image_url,       
-            author = request.user,   # author_id 속성에 user.id 값 저장     
+            author = request.user,   # author_id 속성에 user.id 값 저장    
+
+            section = section, 
+            pants = pants, 
+            # outer = outer, 
+            # top = top, 
+            # onepiece = onepiece, 
+            
+            closet_spring = closet_spring,
+            closet_summer = closet_summer,
+            closet_fall = closet_fall,
+            closet_winter = closet_winter, 
         #2번 추가
         )        
         closet_pants.save()

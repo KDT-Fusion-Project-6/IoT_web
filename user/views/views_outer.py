@@ -19,8 +19,32 @@ from PIL import Image
 def closet_create(request, author_user):
     if request.method == "POST":
         # print(request)
-        closet_outer_title = request.POST["closet_outer_title"]
-        image = request.FILES['closet_outer_uploadedFile']  # 이미지 (title.jpg)
+        closet_outer_title = request.POST["closet_title"]       
+
+        image = request.FILES['closet_uploadedFile']  # 이미지 (title.jpg)
+        
+        section = request.POST["section"]
+        outer = request.POST["outer"]
+        # top = request.POST["top"]
+        # pants = request.POST["pants"]
+        # onepiece = request.POST["onepiece"]
+        
+        closet_spring = request.POST.get('closet_spring',False)
+        if closet_spring == "on":
+            closet_spring = True
+        
+        closet_summer = request.POST.get('closet_summer',False)
+        if closet_summer == "on":
+            closet_summer = True
+            
+        closet_fall = request.POST.get('closet_fall',False)
+        if closet_fall == "on":
+            closet_fall = True
+            
+        closet_winter = request.POST.get('closet_winter',False)
+        if closet_winter == "on":
+            closet_winter = True
+
         user = str(request.user)    # user.id        
         image_type = (image.content_type).split("/")[1]
         bucket_name = BUCKET_NAME
@@ -39,9 +63,21 @@ def closet_create(request, author_user):
             # closet_outer_url = image_url,
             closet_url = image_url,
             author = request.user,   # author_id 속성에 user.id 값 저장
-        )      
-        closet_outer.save()
 
+            section = section, 
+            outer = outer, 
+            # top = top, 
+            # pants = pants, 
+            # onepiece = onepiece, 
+            
+            closet_spring = closet_spring,
+            closet_summer = closet_summer,
+            closet_fall = closet_fall,
+            closet_winter = closet_winter,
+        )    
+
+        closet_outer.save()
+        print(closet_outer)
         s3_client = boto3.client(
                 's3',
                 aws_access_key_id = AWS_ACCESS_KEY_ID,

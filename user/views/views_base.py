@@ -34,7 +34,7 @@ def author_closet(request, author_id):
     closet_list = Closet.objects.filter(author=author_id).order_by('-closet_create_date') # 날짜
 
     context = {'closet_list': closet_list}    
-    return render(request, 'closet/closet_list.html', context)
+    return render(request, 'closet_list.html', context)
     
 
 # 디테일 페이지
@@ -44,6 +44,34 @@ def detail(request, author_user, closet_id):
     closet = get_object_or_404(Closet, pk=closet_id)
     context = {'closet': closet}
     return render(request, 'closet/closet_detail.html', context)
+
+# @login_required(login_url='login:login')
+# def detail_top(request, author_user, closet_id):
+#     Closet.author = author_user
+#     closet = get_object_or_404(Closet, pk=closet_id)
+#     context = {'closet': closet}
+#     return render(request, 'closet/closet_detail_top.html', context)
+
+# @login_required(login_url='login:login')
+# def detail_pants(request, author_user, closet_id):
+#     Closet.author = author_user
+#     closet = get_object_or_404(Closet, pk=closet_id)
+#     context = {'closet': closet}
+#     return render(request, 'closet/closet_detail_pants.html', context)
+
+# @login_required(login_url='login:login')
+# def detail_outer(request, author_user, closet_id):
+#     Closet.author = author_user
+#     closet = get_object_or_404(Closet, pk=closet_id)
+#     context = {'closet': closet}
+#     return render(request, 'closet/closet_detail_outer.html', context)
+
+# @login_required(login_url='login:login')
+# def detail_onepiece(request, author_user, closet_id):
+#     Closet.author = author_user
+#     closet = get_object_or_404(Closet, pk=closet_id)
+#     context = {'closet': closet}
+#     return render(request, 'closet/closet_detail_.html', context)
 
 
 # @login_required(login_url='login:login')

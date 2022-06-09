@@ -9,11 +9,14 @@
 <div class="container mt-3 ">
     <h5 class="my-3 border-bottom pb-2">하의</h5>
 
-    <form action="{% url 'closet:pants_create' %}" method="POST" enctype="multipart/form-data">        
+    <form action="{% url 'closet:pants_create' user.id %}" method="POST" enctype="multipart/form-data">        
         <input type="text"  name="closet_pants_title" placeholder="의류이름"></br></br>
         <input type="file"  name="closet_pants_uploadedFile" class="warning"></br></br>
         {% csrf_token %}
         <input type="submit" value="저장" class="btn btn-warning" onclick="alert('저장완료')"></br>		
     </form>
 </div>
+
+
+
 {% endblock %}

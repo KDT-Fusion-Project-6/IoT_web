@@ -2,7 +2,7 @@ from time import timezone
 
 from django.shortcuts import render
 from django.urls import is_valid_path
-from ..models import Closet_outer
+from ..models import Closet
 from django.shortcuts import render, get_object_or_404
 
 from django.contrib.auth.decorators import login_required
@@ -16,7 +16,7 @@ from PIL import Image
 
 #아우터등록
 @login_required(login_url='login:login')
-def outer_closet_create(request, author_user):
+def closet_create(request, author_user):
     if request.method == "POST":
         # print(request)
         closet_outer_title = request.POST["closet_outer_title"]
@@ -34,9 +34,10 @@ def outer_closet_create(request, author_user):
         buffer.seek(0)
         
         # Saving the information in the database
-        closet_outer = Closet_outer(
-            closet_outer_title = closet_outer_title,
-            closet_outer_url = image_url,
+        closet_outer = Closet(
+            closet_title = closet_outer_title,
+            # closet_outer_url = image_url,
+            closet_url = image_url,
             author = request.user,   # author_id 속성에 user.id 값 저장
         )      
         closet_outer.save()
@@ -56,6 +57,14 @@ def outer_closet_create(request, author_user):
             }
         )
 
-    closet_outer = Closet_outer.objects.all()
+    closet_outer = Closet.objects.all()
     context = { "closet": closet_outer }
     return render(request, "closet/closet_form_outer.html", context) 
+
+# # 디테일 페이지
+# @login_required(login_url='login:login')
+# def detail_outer(request, author_user, closet_id):
+#     Closet_outer.author = author_user
+#     closet = get_object_or_404(Closet_outer, pk=closet_id)
+#     context = {'closet': closet}
+#     return render(request, 'closet/closet_detail.html', context)

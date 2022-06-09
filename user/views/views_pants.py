@@ -1,7 +1,7 @@
 from time import timezone
 
 from django.shortcuts import render
-from ..models import Closet_pants
+from ..models import Closet
 from django.shortcuts import render, get_object_or_404
 
 from django.contrib.auth.decorators import login_required
@@ -14,14 +14,14 @@ from PIL import Image
 
 #하의등록
 @login_required(login_url='login:login')
-def pants_closet_create(request, author_user):
+def closet_create(request, author_user):
 
     if request.method == "POST":
         
         closet_pants_title = request.POST["closet_pants_title"]
         image = request.FILES['closet_pants_uploadedFile']  # 이미지 (title.jpg)
         user = str(request.user)    # user.id
-        category_text = request.POST.get['category']
+        # category_text = request.POST.get['category']
         # 1번추가        
         image_type = (image.content_type).split("/")[1]
         bucket_name = BUCKET_NAME
@@ -35,9 +35,10 @@ def pants_closet_create(request, author_user):
         buffer.seek(0)
         
         # Saving the information in the database
-        closet_pants = Closet_pants(
-            closet_pants_title = closet_pants_title,
-            closet_pants_url = image_url,       
+        closet_pants = Closet(
+            closet_title = closet_pants_title,
+            # closet_pants_url = image_url,       
+            closet_url = image_url,       
             author = request.user,   # author_id 속성에 user.id 값 저장     
         #2번 추가
         )        
@@ -58,6 +59,14 @@ def pants_closet_create(request, author_user):
             }
         )
 
-    closet_pants = Closet_pants.objects.all()
+    closet_pants = Closet.objects.all()
     context = { "closet": closet_pants }
     return render(request, "closet/closet_form_pants.html", context) 
+
+# # 디테일 페이지
+# @login_required(login_url='login:login')
+# def detail_pants(request, author_user, closet_id):
+#     Closet_pants.author = author_user
+#     closet = get_object_or_404(Closet_pants, pk=closet_id)
+#     context = {'closet': closet}
+#     return render(request, 'closet/closet_detail.html', context)

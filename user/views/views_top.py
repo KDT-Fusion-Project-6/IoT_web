@@ -1,7 +1,7 @@
 from time import timezone
 
 from django.shortcuts import render
-from ..models import Closet_top
+from ..models import Closet
 from django.shortcuts import render, get_object_or_404
 
 from django.contrib.auth.decorators import login_required
@@ -14,7 +14,7 @@ from PIL import Image
 
 #상의등록
 @login_required(login_url='login:login')
-def top_closet_create(request, author_user):
+def closet_create(request, author_user):
 
     if request.method == "POST":        
 
@@ -33,9 +33,10 @@ def top_closet_create(request, author_user):
         buffer.seek(0)
         
         # Saving the information in the database     
-        closet_top = Closet_top(
-            closet_top_title = closet_top_title,
-            closet_top_url = image_url,
+        closet_top = Closet(
+            closet_title = closet_top_title,
+            # closet_top_url = image_url,
+            closet_url = image_url,
             author = request.user,   # author_id 속성에 user.id 값 저장
             # author = author_user <-- 에러
         )        
@@ -56,6 +57,14 @@ def top_closet_create(request, author_user):
             }
         )
 
-    closet_top = Closet_top.objects.all()
+    closet_top = Closet.objects.all()
     context = { "closet": closet_top }
     return render(request, "closet/closet_form_top.html", context) 
+
+# # 디테일 페이지
+# @login_required(login_url='login:login')
+# def detail_top(request, author_user, closet_id):
+#     Closet_top.author = author_user
+#     closet = get_object_or_404(Closet_top, pk=closet_id)
+#     context = {'closet': closet}
+#     return render(request, 'closet/closet_detail.html', context)

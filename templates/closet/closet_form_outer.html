@@ -9,7 +9,7 @@
 <div class="container mt-5 ">
     <h5 class="my-3 border-bottom pb-2">아우터</h5>
 
-    <form action="{% url 'closet:outer_create' %}" method="POST" enctype="multipart/form-data">
+    <form action="{% url 'closet:outer_create' user.id %}" method="POST" enctype="multipart/form-data">
         <select name="category1" id="id_month">
             <option value="0" selected>월 선택</option>
             <option value="01">type1</option>

@@ -9,7 +9,7 @@
 <div class="container mt-3 ">
     <h5 class="my-3 border-bottom pb-2">원피스</h5>
 
-    <form action="{% url 'closet:onepiece_create' %}" method="POST" enctype="multipart/form-data">
+    <form action="{% url 'closet:onepiece_create' user.id %}" method="POST" enctype="multipart/form-data">
         <select name="category1" id="id_month">
             <option value="0" selected>월 선택</option>
             <option value="01">type1</option>
@@ -17,13 +17,10 @@
             <option value="03">type3</option>
             <option value="04">type4</option>
         </select>
-        <input type="text" name="closet_onepiece_title" placeholder="의류이름"><br><br>
-        <input type="file" name="closet_onepiece_uploadedFile" class="warning"><br><br>
+        <input type="text" name="closet_onepiece_title" placeholder="의류이름"></br></br>
+        <input type="file" name="closet_onepiece_uploadedFile" class="warning"></br></br>
         {% csrf_token %}
-        <input type="submit" value="저장" class="btn btn-warning" onclick="alert('저장완료')">
-        <div><br>
-		<!-- checkbox: 복수 선택 -->
-	</div>
+        <input type="submit" value="저장" class="btn btn-warning" onclick="alert('저장완료')"></br>        
     </form>
 </div>
 

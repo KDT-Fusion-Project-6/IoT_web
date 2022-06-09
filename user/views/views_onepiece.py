@@ -1,8 +1,9 @@
 from time import timezone
 
 from django.shortcuts import render
-from ..models import Closet_onepiece
+from ..models import Closet
 from django.shortcuts import render, get_object_or_404
+
 
 from django.contrib.auth.decorators import login_required
 
@@ -11,9 +12,11 @@ import boto3
 from io  import BytesIO
 from PIL import Image
 
+
+
 #원피스등록
 @login_required(login_url='login:login')
-def onepiece_closet_create(request, author_user):
+def closet_create(request, author_user):
 
     if request.method == "POST":
 
@@ -32,9 +35,10 @@ def onepiece_closet_create(request, author_user):
         buffer.seek(0)
         
         # Saving the information in the database
-        closet_onepiece = Closet_onepiece(
-            closet_onepiece_title = closet_onepiece_title,
-            closet_onepiece_url = image_url,
+        closet_onepiece = Closet(
+            closet_title = closet_onepiece_title,
+            # closet_onepiece_url = image_url,
+            closet_url = image_url,
             author = request.user,   # author_id 속성에 user.id 값 저장
         )        
         closet_onepiece.save()
@@ -53,7 +57,15 @@ def onepiece_closet_create(request, author_user):
                 "ContentType" : image.content_type
             }
         )
-
-    closet_onepiece = Closet_onepiece.objects.all()
+    
+    closet_onepiece = Closet.objects.all()
     context = { "closet": closet_onepiece }
     return render(request, "closet/closet_form_onepiece.html", context) 
+
+# # 디테일 페이지
+# @login_required(login_url='login:login')
+# def detail_onepiece(request, author_user, closet_id):
+#     Closet_onepiece.author = author_user
+#     closet = get_object_or_404(Closet_onepiece, pk=closet_id)
+#     context = {'closet': closet}
+#     return render(request, 'closet/closet_detail.html', context)

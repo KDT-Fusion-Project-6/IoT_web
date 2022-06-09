@@ -1,7 +1,7 @@
 from time import timezone
 
 from django.shortcuts import render
-from ..models import Closet_top
+from ..models import Closet
 from django.shortcuts import render, get_object_or_404
 
 from django.contrib.auth.decorators import login_required
@@ -12,15 +12,39 @@ from io  import BytesIO
 from PIL import Image
 
 
+#상의등록
 @login_required(login_url='login:login')
-def top_closet_create(request):
-#의류등록
+def closet_create(request, author_user):
+
     if request.method == "POST":        
+
+        closet_top_title = request.POST["closet_title"]     
+        image = request.FILES['closet_uploadedFile']  # 이미지 (title.jpg)
+
+        section = request.POST["section"]
+        top = request.POST["top"]
+        # outer = request.POST["outer"]
+        # pants = request.POST["pants"]
+        # onepiece = request.POST["onepiece"]
         
-        closet_top_title = request.POST["closet_top_title"]
-        image = request.FILES['closet_top_uploadedFile']  # 이미지 (title.jpg)
+        closet_spring = request.POST.get('closet_spring',False)
+        if closet_spring == "on":
+            closet_spring = True
         
-        user = 'test-user' # 어디서? 
+        closet_summer = request.POST.get('closet_summer',False)
+        if closet_summer == "on":
+            closet_summer = True
+            
+        closet_fall = request.POST.get('closet_fall',False)
+        if closet_fall == "on":
+            closet_fall = True
+            
+        closet_winter = request.POST.get('closet_winter',False)
+        if closet_winter == "on":
+            closet_winter = True
+
+
+        user = str(request.user)    # user.id
         image_type = (image.content_type).split("/")[1]
         bucket_name = BUCKET_NAME
         region = REGION
@@ -32,17 +56,26 @@ def top_closet_create(request):
         im.save(buffer, image_type)
         buffer.seek(0)
         
-        # Saving the information in the database
+        # Saving the information in the database     
+        closet_top = Closet(
+            closet_title = closet_top_title,
+            # closet_top_url = image_url,
+            closet_url = image_url,
+            author = request.user,   # author_id 속성에 user.id 값 저장
+            # author = author_user <-- 에러
 
+            section = section, 
+            top = top, 
+            # outer = outer, 
+            # pants = pants, 
+            # onepiece = onepiece, 
+            
+            closet_spring = closet_spring,
+            closet_summer = closet_summer,
+            closet_fall = closet_fall,
+            closet_winter = closet_winter,
 
-        # 값 받아서 함수에 넣어서 처리하는게 전처리인거죠???
-        # 음 아뇨 제가 말한거는 그냥,, 음 if문?!
-
-        closet_top = Closet_top(
-            closet_top_title = closet_top_title,
-            closet_top_url = image_url,
-        )
-        
+        )        
         closet_top.save()
 
         s3_client = boto3.client(
@@ -60,8 +93,14 @@ def top_closet_create(request):
             }
         )
 
-    closet_top = Closet_top.objects.all()
+    closet_top = Closet.objects.all()
+    context = { "closet": closet_top }
+    return render(request, "closet/closet_form_top.html", context) 
 
-    return render(request, "closet/closet_form_top.html", context = {
-        "closet": closet_top
-    }) 
+# # 디테일 페이지
+# @login_required(login_url='login:login')
+# def detail_top(request, author_user, closet_id):
+#     Closet_top.author = author_user
+#     closet = get_object_or_404(Closet_top, pk=closet_id)
+#     context = {'closet': closet}
+#     return render(request, 'closet/closet_detail.html', context)

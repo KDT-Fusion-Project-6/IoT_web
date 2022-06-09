@@ -12,25 +12,66 @@ from io  import BytesIO
 from PIL import Image
 
 
+# @login_required(login_url='login:login')
+# def index(request):
+# #목록출력
+#     page = request.GET.get('page', '1') # 페이지
+#     # 데이터 작성날짜 역순 조회
+#     closet_list = Closet.objects.order_by('-closet_create_date') # 날짜
+
+#     context = {'closet_list': closet_list} 
+#     # print (context)
+#     # closet_list.html 보여주지는 리스트
+#     return render(request, 'closet_list.html', context)
+
+
+# 유저별 목록
 @login_required(login_url='login:login')
-def index(request):
-#목록출력
+def author_closet(request, author_id):
+    
     page = request.GET.get('page', '1') # 페이지
     # 데이터 작성날짜 역순 조회
-    closet_list = Closet.objects.order_by('-closet_create_date') # 날짜
+    closet_list = Closet.objects.filter(author=author_id).order_by('-closet_create_date') # 날짜
 
-    context = {'closet_list': closet_list} 
-    # print (context)
-    # closet_list.html 보여주지는 리스트
+    context = {'closet_list': closet_list}    
     return render(request, 'closet_list.html', context)
+    
 
-
+# 디테일 페이지
 @login_required(login_url='login:login')
-def detail(request, closet_id):
-#내용출력
+def detail(request, author_user, closet_id):
+    Closet.author = author_user
     closet = get_object_or_404(Closet, pk=closet_id)
     context = {'closet': closet}
     return render(request, 'closet/closet_detail.html', context)
+
+# @login_required(login_url='login:login')
+# def detail_top(request, author_user, closet_id):
+#     Closet.author = author_user
+#     closet = get_object_or_404(Closet, pk=closet_id)
+#     context = {'closet': closet}
+#     return render(request, 'closet/closet_detail_top.html', context)
+
+# @login_required(login_url='login:login')
+# def detail_pants(request, author_user, closet_id):
+#     Closet.author = author_user
+#     closet = get_object_or_404(Closet, pk=closet_id)
+#     context = {'closet': closet}
+#     return render(request, 'closet/closet_detail_pants.html', context)
+
+# @login_required(login_url='login:login')
+# def detail_outer(request, author_user, closet_id):
+#     Closet.author = author_user
+#     closet = get_object_or_404(Closet, pk=closet_id)
+#     context = {'closet': closet}
+#     return render(request, 'closet/closet_detail_outer.html', context)
+
+# @login_required(login_url='login:login')
+# def detail_onepiece(request, author_user, closet_id):
+#     Closet.author = author_user
+#     closet = get_object_or_404(Closet, pk=closet_id)
+#     context = {'closet': closet}
+#     return render(request, 'closet/closet_detail_.html', context)
 
 
 # @login_required(login_url='login:login')

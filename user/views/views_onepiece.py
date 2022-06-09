@@ -1,8 +1,9 @@
 from time import timezone
 
 from django.shortcuts import render
-from ..models import Closet_onepiece
+from ..models import Closet
 from django.shortcuts import render, get_object_or_404
+
 
 from django.contrib.auth.decorators import login_required
 
@@ -11,14 +12,40 @@ import boto3
 from io  import BytesIO
 from PIL import Image
 
+
+
+#원피스등록
 @login_required(login_url='login:login')
-def onepiece_closet_create(request):
-#의류등록
+def closet_create(request, author_user):
+
     if request.method == "POST":
-        closet_onepiece_title = request.POST["closet_onepiece_title"]
-        image = request.FILES['closet_onepiece_uploadedFile']  # 이미지 (title.jpg)
+
+        closet_onepiece_title = request.POST["closet_title"]     
+        image = request.FILES['closet_uploadedFile']  # 이미지 (title.jpg)
         
-        user = 'test-user' # 어디서? 
+        section = request.POST["section"]
+        onepiece = request.POST["onepiece"]
+        # outer = request.POST["outer"]
+        # top = request.POST["top"]
+        # pants = request.POST["pants"]
+        
+        closet_spring = request.POST.get('closet_spring',False)
+        if closet_spring == "on":
+            closet_spring = True
+        
+        closet_summer = request.POST.get('closet_summer',False)
+        if closet_summer == "on":
+            closet_summer = True
+            
+        closet_fall = request.POST.get('closet_fall',False)
+        if closet_fall == "on":
+            closet_fall = True
+            
+        closet_winter = request.POST.get('closet_winter',False)
+        if closet_winter == "on":
+            closet_winter = True
+
+        user = str(request.user)    # user.id
         image_type = (image.content_type).split("/")[1]
         bucket_name = BUCKET_NAME
         region = REGION
@@ -31,11 +58,23 @@ def onepiece_closet_create(request):
         buffer.seek(0)
         
         # Saving the information in the database
-        closet_onepiece = Closet_onepiece(
-            closet_onepiece_title = closet_onepiece_title,
-            closet_onepiece_url = image_url,
-        )
-        
+        closet_onepiece = Closet(
+            closet_title = closet_onepiece_title,
+            # closet_onepiece_url = image_url,
+            closet_url = image_url,
+            author = request.user,   # author_id 속성에 user.id 값 저장
+
+            section = section, 
+            onepiece = onepiece, 
+            # outer = outer, 
+            # top = top, 
+            # pants = pants, 
+            
+            closet_spring = closet_spring,
+            closet_summer = closet_summer,
+            closet_fall = closet_fall,
+            closet_winter = closet_winter,
+        )        
         closet_onepiece.save()
 
         s3_client = boto3.client(
@@ -52,9 +91,15 @@ def onepiece_closet_create(request):
                 "ContentType" : image.content_type
             }
         )
+    
+    closet_onepiece = Closet.objects.all()
+    context = { "closet": closet_onepiece }
+    return render(request, "closet/closet_form_onepiece.html", context) 
 
-    closet_onepiece = Closet_onepiece.objects.all()
-
-    return render(request, "closet/closet_form_onepiece.html", context = {
-        "closet": closet_onepiece
-    }) 
+# # 디테일 페이지
+# @login_required(login_url='login:login')
+# def detail_onepiece(request, author_user, closet_id):
+#     Closet_onepiece.author = author_user
+#     closet = get_object_or_404(Closet_onepiece, pk=closet_id)
+#     context = {'closet': closet}
+#     return render(request, 'closet/closet_detail.html', context)

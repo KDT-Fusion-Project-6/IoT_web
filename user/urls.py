@@ -10,7 +10,7 @@ urlpatterns = [
     # path('', views_base.index, name='index'),
     path('<int:author_id>/', 
     views_base.author_closet, name='author_closet'),
-
+    
     # # 옷장 보여주기
     # path('<int:author_user>/<int:closet_id>/', 
     # views_base.detail, name ='detail'),   

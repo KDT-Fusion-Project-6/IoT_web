@@ -20,6 +20,7 @@
         <ul>
             {% for closet in closet_list %} <!-- elif 조건문 2 -->
             <li style="width: 200px; float:left; margin: 0 1%;" >
+               
                 <a href="{% url 'closet:detail' user.id closet.id %}">
                     <img src = "{{ closet.closet_url }}" width="200px" height="200px" class="mx-auto d-block img" style="float: left; margin:2% 2%;">                   
                 </a>

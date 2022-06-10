@@ -12,6 +12,14 @@ from io  import BytesIO
 from PIL import Image
 
 
+# 디테일 페이지
+@login_required(login_url='login:login')
+def detail(request, author_user, closet_id):
+    Closet.author = author_user
+    closet = get_object_or_404(Closet, pk=closet_id)
+    context = {'closet': closet}
+    return render(request, 'closet/closet_detail.html', context)
+
 #하의등록
 @login_required(login_url='login:login')
 def closet_create(request, author_user):
@@ -21,7 +29,8 @@ def closet_create(request, author_user):
         closet_pants_title = request.POST["closet_title"]    
         image = request.FILES['closet_uploadedFile']  # 이미지 (title.jpg)
         
-        section = request.POST["section"]
+        # section = request.POST["section"]
+        section = 2
         pants = request.POST["pants"]
         # outer = request.POST["outer"]
         # top = request.POST["top"]
@@ -44,7 +53,7 @@ def closet_create(request, author_user):
             closet_winter = True
 
         user = str(request.user)    # user.id
-        # category_text = request.POST.get['category']
+        
         # 1번추가        
         image_type = (image.content_type).split("/")[1]
         bucket_name = BUCKET_NAME

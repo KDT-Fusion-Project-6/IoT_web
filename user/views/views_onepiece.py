@@ -13,6 +13,14 @@ from io  import BytesIO
 from PIL import Image
 
 
+# 디테일 페이지
+@login_required(login_url='login:login')
+def detail(request, author_user, closet_id):
+    Closet.author = author_user
+    closet = get_object_or_404(Closet, pk=closet_id)
+    context = {'closet': closet}
+    return render(request, 'closet/closet_detail.html', context)
+
 
 #원피스등록
 @login_required(login_url='login:login')
@@ -23,7 +31,8 @@ def closet_create(request, author_user):
         closet_onepiece_title = request.POST["closet_title"]     
         image = request.FILES['closet_uploadedFile']  # 이미지 (title.jpg)
         
-        section = request.POST["section"]
+        # section = request.POST["section"]
+        section = 4
         onepiece = request.POST["onepiece"]
         # outer = request.POST["outer"]
         # top = request.POST["top"]

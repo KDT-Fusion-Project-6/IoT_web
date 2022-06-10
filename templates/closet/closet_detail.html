@@ -1,0 +1,19 @@
+{% extends 'base.html' %}{% load static %}{% block content %}{% include "base.html" %}   
+<div class="container mt-5 col-sm-3 " >
+    <p style="text-align: center;">{{ closet.closet_title }}</p>
+    <img src="{{ closet.closet_url }}" width="300" height="300" class="mx-auto d-block">
+
+</div>
+<div class="container mx-auto" >
+    <div class="sm-col-3 mx-auto bg-primary">
+        <p>무신사추천</p>
+        <p style="text-align: center;">{{ closet.closet_title }}</p>
+    </div>
+
+    <div class="sm-col-9 mx-auto bg-warning">
+        <p style="text-align: center;">{{ closet.closet_title }}</p>
+    </div>
+</div>
+</div>
+
+{% endblock %}

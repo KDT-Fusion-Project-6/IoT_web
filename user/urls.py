@@ -10,22 +10,22 @@ urlpatterns = [
     # path('', views_base.index, name='index'),
     path('<int:author_id>/', 
     views_base.author_closet, name='author_closet'),
+    
+    # # 옷장 보여주기
+    # path('<int:author_user>/<int:closet_id>/', 
+    # views_base.detail, name ='detail'),   
 
-    # 옷장 보여주기
     path('<int:author_user>/<int:closet_id>/', 
-    views_base.detail, name ='detail'),
+    views_top.detail, name ='detail'),
 
-    # path('<int:author_user>/<int:closet_id>/', 
-    # views_base.detail_top, name ='detail_top'),
+    path('<int:author_user>/<int:closet_id>/', 
+    views_pants.detail, name ='detail'),
 
-    # path('<int:author_user>/<int:closet_id>/', 
-    # views_base.detail_pants, name ='detail_pants'),
+    path('<int:author_user>/<int:closet_id>/', 
+    views_outer.detail, name ='detail'),
 
-    # path('<int:author_user>/<int:closet_id>/', 
-    # views_base.detail_outer, name ='detail_outer'),
-
-    # path('<int:author_user>/<int:closet_id>/', 
-    # views_base.detail_onepiece, name ='detail_onepiece'),
+    path('<int:author_user>/<int:closet_id>/', 
+    views_onepiece.detail, name ='detail'),
 
     
     # 상의

@@ -22,6 +22,7 @@ from yolov5.utils.plots import output_to_target
 from django.core.files.storage import FileSystemStorage
 import random
 
+
 @login_required(login_url='login:login')
 def detail(request, author_user, closet_id):
     Closet.author = author_user
@@ -39,6 +40,7 @@ def closet_create(request, author_user):
         image = request.FILES['closet_uploadedFile']  # 이미지 (title.jpg)
         
         section = '3'
+
         outer = request.POST["outer"]
         
         closet_spring = request.POST.get('closet_spring',False)

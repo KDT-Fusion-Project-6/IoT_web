@@ -22,12 +22,14 @@ from yolov5.utils.plots import output_to_target
 from django.core.files.storage import FileSystemStorage
 import random
 
+
 @login_required(login_url='login:login')
 def detail(request, author_user, closet_id):
     Closet.author = author_user
     closet = Closet.objects.get_object_or_404(Closet, pk=closet_id)
     context = {'closet': closet}
     return render(request, 'closet/closet_detail.html', context)
+
 
 #원피스등록
 @login_required(login_url='login:login')
@@ -39,6 +41,7 @@ def closet_create(request, author_user):
         image = request.FILES['closet_uploadedFile']  # 이미지 (title.jpg)
         
         section = '4'
+
         onepiece = request.POST["onepiece"]
         
         closet_spring = request.POST.get('closet_spring',False)

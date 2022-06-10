@@ -43,7 +43,7 @@ def detail(request, author_user, closet_id):
     Closet.author = author_user
     closet = get_object_or_404(Closet, pk=closet_id)
     context = {'closet': closet}
-    return render(request, 'closet/closet_detail.html', context)
+    return render(request, 'closet/closet_detail_top.html', 'closet/closet_detail_pants.html', 'closet/closet_detail_outer.html', 'closet/closet_detail_onepiece.html', context)
 
 # @login_required(login_url='login:login')
 # def detail_top(request, author_user, closet_id):

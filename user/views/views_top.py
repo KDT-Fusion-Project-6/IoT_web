@@ -29,7 +29,8 @@ def closet_create(request, author_user):
         closet_top_title = request.POST["closet_title"]     
         image = request.FILES['closet_uploadedFile']  # 이미지 (title.jpg)
 
-        section = 1
+        # section = request.POST["section"]
+        section = "1"
         top = request.POST["top"]
         # outer = request.POST["outer"]
         # pants = request.POST["pants"]

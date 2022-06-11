@@ -1,5 +1,6 @@
+from django import views
 from django.urls import path
-from .views import views_outer, views_pants, views_top, views_onepiece, views_base
+from .views import views_outer, views_pants, views_top, views_onepiece, views_base, views_keword
 from django.conf.urls.static import static
 from django.conf import settings
 
@@ -51,6 +52,8 @@ urlpatterns = [
     views_onepiece.closet_create, name='onepiece_create'), # 등록
     # path('closet/detail/onepiece/<int:closet_id>/', views_onepiece.detail_onepiece, name='create'), # 디테일
     # path('closet/delete/onepiece/<int:closet_id>/', views_outer.outer_closet_delete, name='create'), # 삭제
+    
+    path('keword/keword', views_keword.keword_index, name="keword")
 
 ]
 
